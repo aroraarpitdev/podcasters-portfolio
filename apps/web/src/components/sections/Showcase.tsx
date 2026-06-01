@@ -1,11 +1,46 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export function Showcase() {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
+
+  useGSAP(() => {
+    if (hasInteracted) return;
+
+    const obj = { val: 50 };
+    tweenRef.current = gsap.to(obj, {
+      keyframes: [
+        { val: 75, duration: 1.5, ease: "sine.inOut" },
+        { val: 25, duration: 3, ease: "sine.inOut" },
+        { val: 50, duration: 1.5, ease: "sine.inOut" }
+      ],
+      repeat: -1,
+      delay: 1,
+      onUpdate: () => {
+        if (!hasInteracted) {
+          setSliderPosition(obj.val);
+        }
+      }
+    });
+
+    return () => {
+      if (tweenRef.current) tweenRef.current.kill();
+    };
+  }, [hasInteracted]);
+
+  const handleInteractionStart = () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      if (tweenRef.current) tweenRef.current.kill();
+    }
+  };
 
   const handleMove = useCallback((clientX: number) => {
     if (!containerRef.current) return;
@@ -65,10 +100,12 @@ export function Showcase() {
           ref={containerRef}
           className="before-after-container aspect-video rounded-2xl border border-outline-variant bg-surface overflow-hidden shadow-2xl relative"
           onMouseDown={(e) => {
+            handleInteractionStart();
             setIsDragging(true);
             handleMove(e.clientX);
           }}
           onTouchStart={(e) => {
+            handleInteractionStart();
             setIsDragging(true);
             handleMove(e.touches[0].clientX);
           }}
