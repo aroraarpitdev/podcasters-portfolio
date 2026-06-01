@@ -1,0 +1,97 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export function Process() {
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const steps = gsap.utils.toArray(".process-step");
+
+    steps.forEach((step: any, i) => {
+      gsap.from(step, {
+        scrollTrigger: {
+          trigger: step,
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power3.out",
+      });
+    });
+  }, { scope: container });
+
+  return (
+    <section
+      ref={container}
+      className="py-section-gap max-w-[1280px] mx-auto px-container-padding overflow-hidden"
+      id="process"
+    >
+      <h2 className="font-headline-lg text-headline-lg text-center mb-24 text-on-surface">
+        The Workflow
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
+        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-on-surface/10 hidden md:block"></div>
+        <div className="process-step relative group">
+          <div className="font-display-lg text-[100px] text-on-surface/10 absolute -top-16 -left-4 font-bold select-none group-hover:text-primary transition-colors">
+            01
+          </div>
+          <div className="relative z-10 bg-background mt-25">
+            <h4 className="font-headline-md text-xl mb-3 text-on-surface">
+              Upload
+            </h4>
+            <p className="text-on-surface text-sm font-medium">
+              Drop your raw footage into our secure shared drive instantly after recording.
+            </p>
+          </div>
+        </div>
+        <div className="process-step relative group">
+          <div className="font-display-lg text-[100px] text-on-surface/10 absolute -top-16 -left-4 font-bold select-none group-hover:text-primary transition-colors">
+            02
+          </div>
+          <div className="relative z-10 bg-background mt-25">
+            <h4 className="font-headline-md text-xl mb-3 text-on-surface">
+              Edit
+            </h4>
+            <p className="text-on-surface text-sm font-medium">
+              Our expert editors craft the narrative, grade the visuals, and master the audio.
+            </p>
+          </div>
+        </div>
+        <div className="process-step relative group">
+          <div className="font-display-lg text-[100px] text-on-surface/10 absolute -top-16 -left-4 font-bold select-none group-hover:text-primary transition-colors">
+            03
+          </div>
+          <div className="relative z-10 bg-background mt-25">
+            <h4 className="font-headline-md text-xl mb-3 text-on-surface">
+              Review
+            </h4>
+            <p className="text-on-surface text-sm font-medium">
+              Request changes via our frame-by-frame feedback tool until it's perfect.
+            </p>
+          </div>
+        </div>
+        <div className="process-step relative group">
+          <div className="font-display-lg text-[100px] text-on-surface/10 absolute -top-16 -left-4 font-bold select-none group-hover:text-primary transition-colors">
+            04
+          </div>
+          <div className="relative z-10 bg-background mt-25">
+            <h4 className="font-headline-md text-xl mb-3 text-on-surface">
+              Publish
+            </h4>
+            <p className="text-on-surface text-sm font-medium">
+              Receive all final assets optimized for YouTube, TikTok, Reels, and more.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
