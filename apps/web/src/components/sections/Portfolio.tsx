@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Portfolio() {
   const [activeTab, setActiveTab] = useState("FULL EPISODES");
   const tabs = ["FULL EPISODES", "AUDIO BOOK", "SHORTS"];
+  useEffect(() => {
+    console.log("activeTab", activeTab);
+  }, [activeTab]);
 
   return (
     <section className="py-section-gap max-w-[1280px] mx-auto px-container-padding">
@@ -137,7 +140,7 @@ export function Portfolio() {
         )}
 
         {/* AUDIO-FIRST VIEW */}
-        {activeTab === "AUDIO-FIRST" && (
+        {activeTab === "AUDIO BOOK" && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-grid-gutter view-content animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="group bg-surface-container-high rounded-2xl p-4 border border-on-surface/10 hover:border-primary transition-all">
               <div className="aspect-video overflow-hidden rounded-xl mb-6">
