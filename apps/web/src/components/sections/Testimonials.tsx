@@ -47,7 +47,7 @@ export function Testimonials() {
       <div className="w-full bg-[#111111] border-y border-on-surface/10 py-12 mb-20">
         <div className="max-w-[1280px] mx-auto px-container-padding grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="text-center">
-            <div className="font-headline-lg text-[56px] text-primary counter" data-suffix="M+" data-target="1.5">
+            <div className="font-headline-lg text-[56px] text-primary counter" data-suffix="M+" data-target="2.5">
               0
             </div>
             <div className="font-label-sm text-[13px] uppercase tracking-widest text-on-surface/70">

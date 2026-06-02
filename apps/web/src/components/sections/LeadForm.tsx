@@ -108,12 +108,22 @@ export function LeadForm() {
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
-                  Sample Link (Optional)
+                  Email
                 </label>
                 <input
                   className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
-                  placeholder="Link to a raw file"
-                  type="url"
+                  placeholder="Please enter your email"
+                  type="email"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
+                  Comments (Optional)
+                </label>
+                <input
+                  className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
+                  placeholder="Please leave your comment"
+                  type="text"
                 />
               </div>
               <button
