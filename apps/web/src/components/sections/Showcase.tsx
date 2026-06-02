@@ -88,7 +88,7 @@ export function Showcase() {
   return (
     <section className="py-section-gap bg-surface-container-lowest" id="work">
       <div className="max-w-[860px] mx-auto px-container-padding text-center mb-10">
-        <h2 className="font-headline-lg text-headline-lg mb-4 text-on-surface">
+        <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-4 text-on-surface">
           The Transformation
         </h2>
         <p className="text-on-surface/70 font-medium">

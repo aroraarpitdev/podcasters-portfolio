@@ -34,7 +34,7 @@ export function Process() {
       className="py-section-gap max-w-[1280px] mx-auto px-container-padding overflow-hidden"
       id="process"
     >
-      <h2 className="font-headline-lg text-headline-lg text-center mb-16 text-on-surface">
+      <h2 className="font-headline-lg text-[36px] md:text-headline-lg text-center mb-16 text-on-surface">
         The Workflow
       </h2>
       <div className="flex flex-col md:grid md:grid-cols-4 gap-12 relative">

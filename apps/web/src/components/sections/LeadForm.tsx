@@ -16,7 +16,7 @@ export function LeadForm() {
       <div className="max-w-[1280px] mx-auto px-container-padding relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="font-headline-lg text-headline-lg mb-6 text-on-surface">
+            <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-6 text-on-surface">
               Ready to Scale Your Podcast?
             </h2>
             <p className="text-on-surface/80 text-md mb-10 font-medium">

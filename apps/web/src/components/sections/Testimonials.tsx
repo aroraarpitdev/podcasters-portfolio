@@ -35,7 +35,7 @@ export function Testimonials() {
   return (
     <section ref={container} className="py-section-gap overflow-hidden" id="testimonials">
       <div className="max-w-[1280px] mx-auto px-container-padding text-center mb-16">
-        <h2 className="font-headline-lg text-[48px] text-on-surface mb-4">
+        <h2 className="font-headline-lg text-[36px] md:text-[48px] text-on-surface mb-4">
           Results That Speak
         </h2>
         <p className="text-on-surface/60 font-body-md text-[16px]">

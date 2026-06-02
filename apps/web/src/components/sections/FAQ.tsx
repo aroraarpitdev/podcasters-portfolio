@@ -27,7 +27,7 @@ export function FAQ() {
 
   return (
     <section className="py-section-gap max-w-[800px] mx-auto px-container-padding">
-      <h2 className="font-headline-lg text-headline-lg text-center mb-12 text-on-surface">
+      <h2 className="font-headline-lg text-[36px] md:text-headline-lg text-center mb-12 text-on-surface">
         Questions?
       </h2>
       <div className="space-y-4">

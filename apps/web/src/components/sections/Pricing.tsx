@@ -2,7 +2,7 @@ export function Pricing() {
   return (
     <section className="py-section-gap max-w-[1280px] mx-auto px-container-padding" id="pricing">
       <div className="text-center mb-12">
-        <h2 className="font-headline-lg text-headline-lg mb-4 text-on-surface">
+        <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-4 text-on-surface">
           Investment
         </h2>
         <p className="text-on-surface/70 font-bold">

@@ -4,13 +4,13 @@ import { useState } from "react";
 
 export function Portfolio() {
   const [activeTab, setActiveTab] = useState("FULL EPISODES");
-  const tabs = ["FULL EPISODES", "AUDIO-FIRST", "SHORTS"];
+  const tabs = ["FULL EPISODES", "AUDIO BOOK", "SHORTS"];
 
   return (
     <section className="py-section-gap max-w-[1280px] mx-auto px-container-padding">
       <div className="flex flex-col justify-center items-center text-center md:flex-row md:justify-between md:items-end mb-12 gap-8">
         <div>
-          <h2 className="font-headline-lg text-headline-lg mb-2 text-on-surface">
+          <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-2 text-on-surface">
             Latest Projects
           </h2>
           <p className="text-on-surface/60 font-medium">
@@ -22,11 +22,10 @@ export function Portfolio() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`whitespace-nowrap px-5 py-2 rounded-full text-[11px] font-label-sm font-bold transition-all ${
-                activeTab === tab
-                  ? "bg-primary text-on-primary"
-                  : "text-on-surface hover:bg-on-surface/10"
-              }`}
+              className={`whitespace-nowrap px-4 py-2 rounded-full text-[11px] font-label-sm font-bold transition-all ${activeTab === tab
+                ? "bg-primary text-on-primary"
+                : "text-on-surface hover:bg-on-surface/10"
+                }`}
             >
               {tab}
             </button>
@@ -34,7 +33,7 @@ export function Portfolio() {
         </div>
       </div>
       <div className="transition-all duration-500" id="grid-container">
-        
+
         {/* FULL EPISODES VIEW */}
         {activeTab === "FULL EPISODES" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 view-content animate-in fade-in slide-in-from-bottom-4 duration-500">
