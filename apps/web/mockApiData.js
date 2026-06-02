@@ -353,17 +353,17 @@ const pageData = {
         socialLinks: [
             {
                 name: "Instagram",
-                initails: "YT",
+                initials: "IG",
                 url: "#",
             },
             {
                 name: "Twitter",
-                initails: "IG",
+                initials: "TW",
                 url: "#",
             },
             {
                 name: "LinkedIn",
-                initails: "LI",
+                initials: "LI",
                 url: "#",
             },
         ],

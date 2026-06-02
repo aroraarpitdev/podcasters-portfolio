@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export function Header() {
+export function Header({ data }: { data: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export function Header() {
       <header className="fixed top-0 w-full z-50 glass-header border-b border-on-surface/10 h-20 flex items-center">
         <div className="max-w-[1280px] mx-auto w-full px-container-padding flex justify-between items-center">
           <div className="font-headline-md text-[20px] font-bold tracking-tight text-on-surface">
-            EDITOR_STUDIO
+            {data?.brandName || "EDITOR_STUDIO"}
           </div>
           <nav className="hidden md:flex gap-8 items-center">
             <Link
@@ -98,9 +98,9 @@ export function Header() {
             </Link>
           </nav>
           <div className="flex items-center gap-4">
-            <button className="hidden md:block bg-primary text-on-primary font-label-sm text-label-sm px-6 py-3 rounded-full uppercase transition-transform active:scale-95 font-bold">
-              Book a Call
-            </button>
+            <Link href={data?.ctaLink || "#"} className="hidden md:block bg-primary text-on-primary font-label-sm text-label-sm px-6 py-3 rounded-full uppercase transition-transform active:scale-95 font-bold">
+              {data?.ctaTitle || "Book a Call"}
+            </Link>
             <button className="md:hidden text-on-surface p-2" onClick={toggleMenu}>
               <span className="material-symbols-outlined text-3xl">menu</span>
             </button>

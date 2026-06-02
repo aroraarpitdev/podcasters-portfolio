@@ -3,35 +3,22 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const faqs = [
-  {
-    question: "What is the turnaround time?",
-    answer: "Our typical turnaround time for full episodes is 48-72 hours. Shorts are usually delivered within 24 hours of episode approval."
-  },
-  {
-    question: "Do I own the copyrights?",
-    answer: "Yes, 100%. Once final payment is made, all creative rights to the edited assets are fully yours."
-  },
-  {
-    question: "Can I request revisions?",
-    answer: "Absolutely. Every package includes at least two rounds of major revisions. We use specialized software for frame-by-frame commenting."
-  }
-];
-
-export function FAQ() {
+export function FAQ({ data }: { data: any }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  if (!data) return null;
+
   return (
     <section className="py-section-gap max-w-[800px] mx-auto px-container-padding">
       <h2 className="font-headline-lg text-[36px] md:text-headline-lg text-center mb-12 text-on-surface">
-        Questions?
+        {data.heading}
       </h2>
       <div className="space-y-4">
-        {faqs.map((faq, index) => {
+        {data.faqContent?.map((faq: any, index: number) => {
           const isOpen = openIndex === index;
           return (
             <div key={index} className="faq-item border-b border-on-surface/10 pb-4">

@@ -14,24 +14,28 @@ import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
 import { LeadForm } from "@/components/sections/LeadForm";
 
-export default function Home() {
+import { getPageData } from "@/lib/api";
+
+export default async function Home() {
+  const pageData = await getPageData();
+
   return (
     <>
       <NoiseOverlay />
-      <Header />
+      <Header data={pageData.header} />
       <main>
-        <Hero />
-        <Showcase />
-        <Portfolio />
-        <Services />
-        <Process />
-        <Stats />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
-        <LeadForm />
+        <Hero data={pageData.hero} />
+        <Showcase data={pageData.transformation} />
+        <Portfolio data={pageData.latestProjects} />
+        <Services data={pageData.services} />
+        <Process data={pageData.workflow} />
+        <Stats data={pageData.stats} />
+        <Testimonials data={pageData.testimonials} />
+        <Pricing data={pageData.pricing} />
+        <FAQ data={pageData.faq} />
+        <LeadForm data={pageData.leadForm} />
       </main>
-      <Footer />
+      <Footer data={pageData.footer} />
       <FloatingFAB />
     </>
   );

@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 
-export function LeadForm() {
+export function LeadForm({ data }: { data: any }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
   };
+
+  if (!data) return null;
 
   return (
     <section className="bg-surface-container-lowest py-section-gap relative overflow-hidden">
@@ -17,40 +19,27 @@ export function LeadForm() {
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-6 text-on-surface">
-              Ready to Scale Your Podcast?
+              {data.leftSection?.heading}
             </h2>
             <p className="text-on-surface/80 text-md mb-10 font-medium">
-              Fill out the form below and we'll get back to you within 24 hours with a custom proposal and your free sample edit.
+              {data.leftSection?.subheading}
             </p>
             <div className="space-y-8">
-              <div className="flex items-center gap-5">
-                <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-full">
-                  <span className="material-symbols-outlined text-on-primary font-bold text-xl">
-                    mail
-                  </span>
-                </div>
-                <div>
-                  <div className="font-extrabold text-on-surface text-sm uppercase tracking-wider">Email Us</div>
-                  <div className="text-on-surface/60 text-sm">
-                    hello@editorstudio.com
+              {data.leftSection?.icons?.map((icon: any, idx: number) => (
+                <div key={idx} className="flex items-center gap-5">
+                  <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-full">
+                    <span className="material-symbols-outlined text-on-primary font-bold text-xl">
+                      {icon.iconUrl}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="font-extrabold text-on-surface text-sm uppercase tracking-wider">{icon.iconText}</div>
+                    <div className="text-on-surface/60 text-sm">
+                      {icon.iconSubText}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-5">
-                <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-full">
-                  <span className="material-symbols-outlined text-on-primary font-bold text-xl">
-                    calendar_month
-                  </span>
-                </div>
-                <div>
-                  <div className="font-extrabold text-on-surface text-sm uppercase tracking-wider">
-                    Office Hours
-                  </div>
-                  <div className="text-on-surface/60 text-sm">
-                    Mon - Fri, 9am - 6pm EST
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -91,9 +80,9 @@ export function LeadForm() {
                       Monthly Budget
                     </label>
                     <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
-                      <option className="bg-surface-container">$1k - $2k</option>
-                      <option className="bg-surface-container">$2k - $5k</option>
-                      <option className="bg-surface-container">$5k+</option>
+                      {data.rightForm?.monthlyBudgetOptions?.map((opt: string, i: number) => (
+                        <option key={i} className="bg-surface-container">{opt}</option>
+                      ))}
                     </select>
                   </div>
 
@@ -102,9 +91,9 @@ export function LeadForm() {
                       Primary Platform
                     </label>
                     <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
-                      <option className="bg-surface-container">YouTube</option>
-                      <option className="bg-surface-container">TikTok / Instagram</option>
-                      <option className="bg-surface-container">Multi-Platform</option>
+                      {data.rightForm?.primaryPlatformOptions?.map((opt: string, i: number) => (
+                        <option key={i} className="bg-surface-container">{opt}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -115,7 +104,6 @@ export function LeadForm() {
                   <textarea
                     className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
                     placeholder="Write something"
-                  // type="text"
                   />
                 </div>
               </div>
@@ -123,7 +111,7 @@ export function LeadForm() {
                 className="w-full bg-primary text-on-primary font-label-sm text-[12px] uppercase py-5 rounded-lg font-extrabold tracking-widest mt-6"
                 type="submit"
               >
-                Send My Details
+                {data.rightForm?.ctaText || "Send My Details"}
               </button>
             </form>
           ) : (
