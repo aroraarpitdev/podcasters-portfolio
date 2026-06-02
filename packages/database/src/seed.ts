@@ -6,15 +6,19 @@ async function seed() {
   console.log("Seeding database...");
   
   try {
-    // 1. Seed page content (excluding testimonials)
-    const { testimonials: mockTestimonials, ...restPageData } = pageData;
+    // 1. Seed page content (excluding testimonial cards)
+    const { videoCards, textCards, ...testimonialSectionData } = pageData.testimonials;
+    const pageContentData = {
+      ...pageData,
+      testimonials: testimonialSectionData
+    };
     
     await db.insert(pageContent).values({
       id: "home",
-      content: restPageData,
+      content: pageContentData,
     }).onConflictDoUpdate({
       target: pageContent.id,
-      set: { content: restPageData, updatedAt: new Date() }
+      set: { content: pageContentData, updatedAt: new Date() }
     });
     
     console.log("✅ Page content seeded successfully.");
@@ -23,10 +27,10 @@ async function seed() {
     // Clear existing testimonials
     await db.delete(testimonials);
     
-    const textCards = mockTestimonials.textCards || [];
-    const videoCards = mockTestimonials.videoCards || [];
+    const textCardsArr = textCards || [];
+    const videoCardsArr = videoCards || [];
 
-    const textTestimonialsToInsert = textCards.map((t: any) => ({
+    const textTestimonialsToInsert = textCardsArr.map((t: any) => ({
       type: 'text' as const,
       author: t.author,
       content: t.cardHeading,
@@ -34,7 +38,7 @@ async function seed() {
       category: t.category,
     }));
 
-    const videoTestimonialsToInsert = videoCards.map((v: any) => ({
+    const videoTestimonialsToInsert = videoCardsArr.map((v: any) => ({
       type: 'video' as const,
       author: v.videoAuthor,
       brand: v.authorBrand,
