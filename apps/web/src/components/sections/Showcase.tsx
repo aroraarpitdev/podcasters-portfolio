@@ -87,18 +87,18 @@ export function Showcase() {
 
   return (
     <section className="py-section-gap bg-surface-container-lowest" id="work">
-      <div className="max-w-[1280px] mx-auto px-container-padding text-center mb-16">
+      <div className="max-w-[860px] mx-auto px-container-padding text-center mb-10">
         <h2 className="font-headline-lg text-headline-lg mb-4 text-on-surface">
           The Transformation
         </h2>
-        <p className="text-on-surface font-medium">
+        <p className="text-on-surface/70 font-medium">
           Drag the slider to see how we turn raw footage into cinematic assets.
         </p>
       </div>
-      <div className="max-w-[1280px] mx-auto px-container-padding">
+      <div className="w-full max-w-[860px] mx-auto md:px-container-padding">
         <div
           ref={containerRef}
-          className="before-after-container aspect-video rounded-2xl border border-outline-variant bg-surface overflow-hidden shadow-2xl relative"
+          className="before-after-container aspect-video md:rounded-2xl border-y md:border border-outline-variant bg-surface overflow-hidden shadow-2xl relative"
           onMouseDown={(e) => {
             handleInteractionStart();
             setIsDragging(true);
@@ -117,7 +117,7 @@ export function Showcase() {
               className="w-full h-full object-cover pointer-events-none"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZkNJZr3WsozOQCQlNp3nCwKUNb2Zoj-OFHOFCx82OMMDbAqoR9pRCEJj1jZYpUJ7OjPMC0HtXRnmTfih5DYr1aABMPlsWuMVBCCZqWlPi0ZLq9wxzVeM7xGap8nE3ln7hH-JXSC1COBmy2YcztPR68eQRLyVt5GhGXo2w1d0knXWETXTBoiZO8eKaTTKuTnPwEKoweb9XnFr-ykQT2C2nN352DhiYhv5TzmwQxCk23XaLZm28bb4SM55XHqkvm6ZRyA-LdjexVT0"
             />
-            <div className="absolute top-6 left-6 bg-black/70 backdrop-blur px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase text-white">
+            <div className="absolute top-4 left-4 bg-black/70 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-white">
               Raw
             </div>
           </div>
@@ -133,9 +133,9 @@ export function Showcase() {
                 Better approach: Make the child absolute right-0 and width of container.
             */}
             <div
-              className="absolute top-0 right-0 h-full w-full pointer-events-none"
+              className="absolute top-0 right-0 h-full w-[100vw] md:w-[860px] pointer-events-none"
               style={{
-                width: containerRef.current ? `${containerRef.current.getBoundingClientRect().width}px` : "860px" // Fallback to 860px
+                width: containerRef.current ? `${containerRef.current.getBoundingClientRect().width}px` : undefined // Will use Tailwind classes if not loaded
               }}
             >
               <img
@@ -143,14 +143,15 @@ export function Showcase() {
                 className="w-full h-full object-cover"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDIgZooRrfLk3HYSAPenJVzQXG8MF65SeF7GEpfZdy8M0C-r6fTUU8eDi8n8bPjQpx7gj1BVqSiEZli7pLOkMgkDQpwzLJZeJKenNa1glVXhuC5C5kbIpmlRKFS_Bhp-6jTaBns8oAJCE_0qFgPT0m9M7gRlYaUkhTJxDuvqEmZj_6LJsNlE0Uk95jHOUlDuEmuoZDxAcpc3DPWkOsePnajgwayp3brFMN1ouNldbBK3h3NII1ua0quOKZu2Mt6kBeRYllQyurCfI"
               />
-              <div className="absolute top-6 right-6 bg-primary px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase text-on-primary">
+              <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-on-primary">
                 Edited
               </div>
-              <div className="absolute bottom-12 right-12 text-right">
-                <div className="bg-primary text-on-primary px-3 py-1 font-bold rounded text-lg mb-1">
+              <div className="absolute bottom-6 right-6 text-right">
+                <div className="bg-primary text-on-primary px-3 py-1 font-bold rounded text-sm mb-1 inline-block">
                   DYNAMIC CAPTIONS
                 </div>
-                <div className="bg-black text-on-surface px-3 py-1 font-bold rounded text-sm">
+                <br />
+                <div className="bg-black text-on-surface px-2 py-1 font-bold rounded text-[10px] inline-block">
                   CINEMATIC COLOR
                 </div>
               </div>

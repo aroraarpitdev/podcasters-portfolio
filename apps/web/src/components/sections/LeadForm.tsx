@@ -12,41 +12,41 @@ export function LeadForm() {
 
   return (
     <section className="bg-surface-container-lowest py-section-gap relative overflow-hidden">
-      <div className="absolute inset-0 bg-primary/10 blur-[120px] rounded-full translate-x-1/2"></div>
+      <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full translate-x-1/2"></div>
       <div className="max-w-[1280px] mx-auto px-container-padding relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="font-headline-lg text-headline-lg mb-8 text-on-surface">
+            <h2 className="font-headline-lg text-headline-lg mb-6 text-on-surface">
               Ready to Scale Your Podcast?
             </h2>
-            <p className="text-on-surface text-lg mb-12 font-bold">
+            <p className="text-on-surface/80 text-md mb-10 font-medium">
               Fill out the form below and we'll get back to you within 24 hours with a custom proposal and your free sample edit.
             </p>
             <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-primary flex items-center justify-center rounded-full shadow-lg">
-                  <span className="material-symbols-outlined text-on-primary font-bold">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-full">
+                  <span className="material-symbols-outlined text-on-primary font-bold text-xl">
                     mail
                   </span>
                 </div>
                 <div>
-                  <div className="font-extrabold text-on-surface">Email Us</div>
-                  <div className="text-on-surface font-medium">
+                  <div className="font-extrabold text-on-surface text-sm uppercase tracking-wider">Email Us</div>
+                  <div className="text-on-surface/60 text-sm">
                     hello@editorstudio.com
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-primary flex items-center justify-center rounded-full shadow-lg">
-                  <span className="material-symbols-outlined text-on-primary font-bold">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-full">
+                  <span className="material-symbols-outlined text-on-primary font-bold text-xl">
                     calendar_month
                   </span>
                 </div>
                 <div>
-                  <div className="font-extrabold text-on-surface">
+                  <div className="font-extrabold text-on-surface text-sm uppercase tracking-wider">
                     Office Hours
                   </div>
-                  <div className="text-on-surface font-medium">
+                  <div className="text-on-surface/60 text-sm">
                     Mon - Fri, 9am - 6pm EST
                   </div>
                 </div>
@@ -58,76 +58,64 @@ export function LeadForm() {
             <form
               id="lead-form"
               onSubmit={handleSubmit}
-              className="bg-surface-container p-10 rounded-2xl border-2 border-on-surface/10 space-y-6"
+              className="w-full bg-surface-container p-6 md:p-10 rounded-2xl border border-on-surface/10 space-y-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                     Full Name
                   </label>
                   <input
-                    className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
+                    className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
                     placeholder="John Doe"
                     required
                     type="text"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                     Podcast URL
                   </label>
                   <input
-                    className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
+                    className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
                     placeholder="youtube.com/@yourpod"
                     required
                     type="url"
                   />
                 </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                     Monthly Budget
                   </label>
-                  <select className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface">
+                  <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
                     <option className="bg-surface-container">$1k - $2k</option>
                     <option className="bg-surface-container">$2k - $5k</option>
                     <option className="bg-surface-container">$5k+</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                     Primary Platform
                   </label>
-                  <select className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface">
+                  <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
                     <option className="bg-surface-container">YouTube</option>
                     <option className="bg-surface-container">TikTok / Instagram</option>
                     <option className="bg-surface-container">Multi-Platform</option>
                   </select>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
-                  Email
-                </label>
-                <input
-                  className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
-                  placeholder="Please enter your email"
-                  type="email"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-extrabold uppercase tracking-widest text-on-surface">
-                  Comments (Optional)
-                </label>
-                <input
-                  className="w-full bg-transparent border-b-2 border-on-surface/30 focus:border-primary focus:ring-0 py-3 transition-colors text-on-surface placeholder:text-on-surface/40"
-                  placeholder="Please leave your comment"
-                  type="text"
-                />
+                <div className="space-y-2">
+                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
+                    Sample Link (Optional)
+                  </label>
+                  <input
+                    className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
+                    placeholder="Link to a raw file"
+                    type="url"
+                  />
+                </div>
               </div>
               <button
-                className="w-full bg-primary text-on-primary font-label-sm text-sm uppercase py-5 rounded-lg font-extrabold tracking-widest hover:opacity-90 transition-all mt-6 shadow-xl"
+                className="w-full bg-primary text-on-primary font-label-sm text-[12px] uppercase py-5 rounded-lg font-extrabold tracking-widest mt-6"
                 type="submit"
               >
                 Send My Details
@@ -136,7 +124,7 @@ export function LeadForm() {
           ) : (
             <div
               id="success-msg"
-              className="bg-surface-container p-10 rounded-2xl border-4 border-primary text-center"
+              className="w-full bg-surface-container p-10 rounded-2xl border-2 border-primary text-center"
             >
               <span className="material-symbols-outlined text-primary text-6xl mb-4 font-bold">
                 check_circle

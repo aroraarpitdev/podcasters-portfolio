@@ -8,21 +8,21 @@ export function Portfolio() {
 
   return (
     <section className="py-section-gap max-w-[1280px] mx-auto px-container-padding">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
+      <div className="flex flex-col justify-center items-center text-center md:flex-row md:justify-between md:items-end mb-12 gap-8">
         <div>
-          <h2 className="font-headline-lg text-headline-lg mb-4 text-on-surface">
+          <h2 className="font-headline-lg text-headline-lg mb-2 text-on-surface">
             Latest Projects
           </h2>
-          <p className="text-on-surface font-medium">
+          <p className="text-on-surface/60 font-medium">
             Helping creators dominate every platform.
           </p>
         </div>
-        <div className="flex bg-surface-container rounded-full p-1 border-2 border-on-surface/20 overflow-x-auto custom-scrollbar">
+        <div className="flex bg-surface-container rounded-full p-1 border border-on-surface/10 overflow-x-auto max-w-full">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`whitespace-nowrap px-6 py-2 rounded-full text-label-sm font-label-sm font-bold transition-all ${
+              className={`whitespace-nowrap px-5 py-2 rounded-full text-[11px] font-label-sm font-bold transition-all ${
                 activeTab === tab
                   ? "bg-primary text-on-primary"
                   : "text-on-surface hover:bg-on-surface/10"
@@ -37,16 +37,16 @@ export function Portfolio() {
         
         {/* FULL EPISODES VIEW */}
         {activeTab === "FULL EPISODES" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-grid-gutter view-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 view-content animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border-2 border-on-surface/10 mb-4">
+              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4">
                 <img
                   alt="The Business Lab"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6pqFVNRccG5No-3OFGLqEDVkHHIpJInvegkrpURpZb1t7iozj14xO8U1fwb1i_X3k87HlTTOtZEFhR5RpEXyUawjahC5pjp0509G5BPB7UZIX9xnBOabyEH2shuygx6JHR87zSPsYCGErUI0YDkapEuQu52_rZNefLX9Qk-Ant3W4IHD17JGNR5efPbYh5ym3IvaQdJ9RKvcLMFaZMXFDZpRpXjA6c5Mk8oYRuky7Zk7HIoZ7KCR-5U31U5iR-VUr3vKhxhGSNjY"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform">
+                  <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform">
                     <span
                       className="material-symbols-outlined text-on-primary text-3xl"
                       style={{ fontVariationSettings: "'FILL' 1" }}
@@ -58,27 +58,27 @@ export function Portfolio() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-headline-md text-xl mb-1 text-on-surface">
+                  <h3 className="font-headline-md text-lg mb-1 text-on-surface">
                     The Business Lab
                   </h3>
-                  <p className="text-on-surface text-sm font-medium">
+                  <p className="text-on-surface/60 text-xs font-medium">
                     Full Episode Production
                   </p>
                 </div>
-                <div className="text-on-primary font-bold text-sm bg-primary px-3 py-1 rounded">
+                <div className="text-on-primary font-bold text-[10px] bg-primary px-2 py-1 rounded">
                   1.2M VIEWS
                 </div>
               </div>
             </div>
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border-2 border-on-surface/10 mb-4">
+              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4">
                 <img
                   alt="Founders Series"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVzfX7htPWE4os00k88q6uSnheWM_Nc2frGqh8XQI-RqbMR9Wy_5QV7rlMRRznMYz94dTGBk-_CzDXajGX2Oqnvq06viIk_1dVd8ieVv2OXXqZ-OdpJCEEilLL2x7gHqom5YKroPhmv-FK_YJkUHv3ZztYh3f6r_JvXaMGbV_9N3WftSqqhYrCLOY5aCBjNcT_lLgaFOsFjdmVfdTdS3ukY5-KDcIH9BWlV_JUdQh8JfBovyHCHRo_WBfmU6wjp6leM9EsGV8CZqY"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform">
+                  <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform">
                     <span
                       className="material-symbols-outlined text-on-primary text-3xl"
                       style={{ fontVariationSettings: "'FILL' 1" }}
@@ -90,27 +90,27 @@ export function Portfolio() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-headline-md text-xl mb-1 text-on-surface">
+                  <h3 className="font-headline-md text-lg mb-1 text-on-surface">
                     Founders Series
                   </h3>
-                  <p className="text-on-surface text-sm font-medium">
+                  <p className="text-on-surface/60 text-xs font-medium">
                     Vertical Shorts Strategy
                   </p>
                 </div>
-                <div className="text-on-primary font-bold text-sm bg-primary px-3 py-1 rounded">
+                <div className="text-on-primary font-bold text-[10px] bg-primary px-2 py-1 rounded">
                   850K VIEWS
                 </div>
               </div>
             </div>
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border-2 border-on-surface/10 mb-4">
+              <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4">
                 <img
                   alt="Creative Minds"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN_tN4D2w2lBdYzwjtadNmVylFrOR9_b5mckuintnzD45FyB3mmR3AlSNkA20diz_CaG2x5xbuDfT9caIDh5k7i3v-2QzRukvkiI-EFFyYYS8L0WJA8N6u1zt5TOuUvgVGf6RRoLamCyhh0IRVMYhVliOfWJQK5X1OMW6DiPKNoAXf5W-5cP4-71-FjFRmWpbjDSuqFxGVjIwmGWlqXPv8O-W2T50vJkOBhlQfGowWoiMnT2bcj3_uCOA_0Sp12DBNJ1kYTAv0z7U"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform">
+                  <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform">
                     <span
                       className="material-symbols-outlined text-on-primary text-3xl"
                       style={{ fontVariationSettings: "'FILL' 1" }}
@@ -122,14 +122,14 @@ export function Portfolio() {
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-headline-md text-xl mb-1 text-on-surface">
+                  <h3 className="font-headline-md text-lg mb-1 text-on-surface">
                     Creative Minds
                   </h3>
-                  <p className="text-on-surface text-sm font-medium">
+                  <p className="text-on-surface/60 text-xs font-medium">
                     Hybrid Production
                   </p>
                 </div>
-                <div className="text-on-primary font-bold text-sm bg-primary px-3 py-1 rounded">
+                <div className="text-on-primary font-bold text-[10px] bg-primary px-2 py-1 rounded">
                   2.4M VIEWS
                 </div>
               </div>

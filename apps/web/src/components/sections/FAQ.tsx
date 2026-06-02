@@ -27,19 +27,19 @@ export function FAQ() {
 
   return (
     <section className="py-section-gap max-w-[800px] mx-auto px-container-padding">
-      <h2 className="font-headline-lg text-headline-lg text-center mb-16 text-on-surface">
+      <h2 className="font-headline-lg text-headline-lg text-center mb-12 text-on-surface">
         Questions?
       </h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
-            <div key={index} className="faq-item border-b-2 border-on-surface/10 pb-4">
+            <div key={index} className="faq-item border-b border-on-surface/10 pb-4">
               <button
                 onClick={() => toggle(index)}
                 className={cn("w-full flex justify-between items-center py-4 text-left group", isOpen && "active")}
               >
-                <span className="font-headline-md text-xl text-on-surface font-bold">
+                <span className="font-headline-md text-lg text-on-surface font-bold">
                   {faq.question}
                 </span>
                 <span
@@ -57,7 +57,7 @@ export function FAQ() {
                   isOpen ? "max-h-[500px]" : "max-h-0"
                 )}
               >
-                <p className="text-on-surface py-4 font-medium">
+                <p className="text-on-surface/70 py-4 text-sm font-medium">
                   {faq.answer}
                 </p>
               </div>
