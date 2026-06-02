@@ -1,0 +1,118 @@
+data from api calls
+
+Header-------------
+1. Brand name
+2. cta title
+3. cta link
+
+
+Hero---------
+1. label-1
+2. Main-heading-body
+3. Main-heading-highlighted text
+4. hero label 2
+5. CTA-1-title
+6. CTA-2-title
+7. circle clients initials
+8. clients text supporting
+9. image url
+10. analytics text
+11. analytics number
+
+
+The transformation ---------
+1. heading
+2. subheading
+3. raw image url
+4. edited url url
+5. Bottom-text-bold
+6. Bottom text-light
+
+
+Latest projects-------------
+1. heading
+2. subheading
+3. video url
+4. video heading
+5. video sub heading
+5. view counts
+
+
+services----------
+1. heading
+2. sub heading
+3. card-heading
+4. card subheading
+5. pointers["string"]
+
+
+The workflow-------------------
+1. number count
+2. heading
+3. subheading
+
+
+Stats -----------------------
+1. main text
+2. supporting text
+
+
+Testomonials----------------------
+1. Heading
+2. subheading
+3. stats heading
+4. stats title
+    VIDEO CARDS
+5. video url
+6. video author
+7. author brand
+8. testimonial
+9. category
+10. card direction
+    Text cards
+11. card heading
+12. author
+13. rating
+14. category
+
+Pricing ----------------
+1. heading
+2. sub heading
+3. main separator(is the main card as its larger)
+4. card title
+5. price title
+6. available options
+7. unavailable options
+8. cta title
+9. cta link
+
+
+FAQ--------------------------
+1. faq title
+2. faq heading
+3. faq content
+
+
+Lead form-----------------------
+    Left section
+1. heading
+2. subheading
+3. icon url
+4. icon text
+5. icon sub text
+    Right form
+1. labels
+2. labels data
+3. submission cta text
+
+Footer-------------------
+1. brand name
+2. brand tagline
+3. social media text
+4. link
+
+Floating FAB-------
+1. text
+2. text cta
+3. enable/disable
+
