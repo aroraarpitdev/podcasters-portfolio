@@ -61,56 +61,61 @@ export function LeadForm() {
               className="w-full bg-surface-container p-6 md:p-10 rounded-2xl border border-on-surface/10 space-y-6"
             >
               <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
+                      Full Name
+                    </label>
+                    <input
+                      className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
+                      placeholder="John Doe"
+                      required
+                      type="text"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
+                      Email
+                    </label>
+                    <input
+                      className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
+                      placeholder="email@example.com"
+                      required
+                      type="email"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
+                      Monthly Budget
+                    </label>
+                    <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
+                      <option className="bg-surface-container">$1k - $2k</option>
+                      <option className="bg-surface-container">$2k - $5k</option>
+                      <option className="bg-surface-container">$5k+</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
+                      Primary Platform
+                    </label>
+                    <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
+                      <option className="bg-surface-container">YouTube</option>
+                      <option className="bg-surface-container">TikTok / Instagram</option>
+                      <option className="bg-surface-container">Multi-Platform</option>
+                    </select>
+                  </div>
+                </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
-                    Full Name
+                    Comments (Optional)
                   </label>
-                  <input
+                  <textarea
                     className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
-                    placeholder="John Doe"
-                    required
-                    type="text"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
-                    Podcast URL
-                  </label>
-                  <input
-                    className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
-                    placeholder="youtube.com/@yourpod"
-                    required
-                    type="url"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
-                    Monthly Budget
-                  </label>
-                  <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
-                    <option className="bg-surface-container">$1k - $2k</option>
-                    <option className="bg-surface-container">$2k - $5k</option>
-                    <option className="bg-surface-container">$5k+</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
-                    Primary Platform
-                  </label>
-                  <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
-                    <option className="bg-surface-container">YouTube</option>
-                    <option className="bg-surface-container">TikTok / Instagram</option>
-                    <option className="bg-surface-container">Multi-Platform</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
-                    Sample Link (Optional)
-                  </label>
-                  <input
-                    className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
-                    placeholder="Link to a raw file"
-                    type="url"
+                    placeholder="Write something"
+                  // type="text"
                   />
                 </div>
               </div>
