@@ -1,0 +1,73 @@
+import React from "react";
+import { useDashboardContext } from "../DashboardContext";
+
+export default function WorkflowSection() {
+  const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
+  const workflowData = data.workflow || {};
+  const steps = workflowData.steps || [];
+
+  return (
+    <div className="bg-surface-variant border border-outline-variant rounded-none overflow-hidden transition-all duration-300 shadow-sm mb-16">
+      <div className="flex items-center justify-between px-6 py-4 bg-surface-container-high border-b border-outline-variant">
+        <h3 className="font-headline-sm text-headline-sm text-primary uppercase tracking-widest flex items-center gap-2">
+          <span className="material-symbols-outlined text-[20px]">account_tree</span>
+          Workflow
+        </h3>
+        <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">
+          expand_less
+        </span>
+      </div>
+      <div className="p-6 space-y-8">
+        <div className="flex flex-col gap-2 md:w-1/2">
+          <label className="font-label-caps text-label-caps text-[#F0EDE680] uppercase opacity-60">
+            Heading
+          </label>
+          <input
+            className="bg-[#111111] border border-[#9f8e7a] focus:border-primary text-on-background font-input text-input p-[14px] outline-none transition-all"
+            type="text"
+            value={workflowData.heading || ""}
+            onChange={(e) => updateSectionField("workflow", "heading", e.target.value)}
+          />
+        </div>
+
+        {/* Steps */}
+        <div className="space-y-4 pt-6 border-t border-[#2A2A2A]/30">
+          <div className="flex justify-between items-center">
+            <h4 className="font-headline-sm text-[16px] text-on-surface uppercase tracking-wider">
+              Workflow Steps
+            </h4>
+            <button
+              className="flex items-center gap-2 px-4 py-1.5 border border-primary/30 text-primary font-button text-[12px] uppercase hover:bg-primary/10 transition-all active:scale-95"
+              onClick={() => {
+                const newItem = { id: Date.now(), count: "00", heading: "New Step", subheading: "" };
+                addArrayItem("workflow", "steps", newItem);
+              }}
+            >
+              <span className="material-symbols-outlined text-[16px]">add</span>
+              Add Step
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {steps.map((item: any, index: number) => (
+              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
+                <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error absolute top-2 right-2 z-10" onClick={() => removeArrayItem("workflow", "steps", index)}>delete</button>
+                <div className="flex flex-col gap-1 mt-4">
+                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Count (e.g. 01)</label>
+                  <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.count || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "count", e.target.value)} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Heading</label>
+                  <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.heading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "heading", e.target.value)} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Subheading</label>
+                  <textarea className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none resize-none" rows={3} value={item.subheading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "subheading", e.target.value)} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
