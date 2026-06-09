@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function HeroSection() {
-  const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
+  const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem, showToast } = useDashboardContext();
   const [isExpanded, setIsExpanded] = useState(true);
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
 
@@ -192,6 +192,10 @@ export default function HeroSection() {
             <button
               className="flex items-center gap-2 px-4 py-1.5 border border-primary/30 text-primary font-button text-[12px] uppercase hover:bg-primary/10 transition-all active:scale-95"
               onClick={() => {
+                if (clients.length >= 3) {
+                  showToast("You can only add up to 3 Circle Clients.", "error");
+                  return;
+                }
                 const newId = Date.now();
                 const newClient = { id: newId, initials: "NEW", redirect: false, redirectLink: "" };
                 addArrayItem("hero", "circleClientsInitials", newClient);

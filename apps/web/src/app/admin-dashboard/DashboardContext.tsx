@@ -13,6 +13,9 @@ type DashboardContextType = {
   addTopLevelArrayItem: (arrayField: string, defaultItem: any) => void;
   removeTopLevelArrayItem: (arrayField: string, index: number) => void;
   initialData: any;
+  toastMessage: { message: string, type: 'success' | 'error' } | null;
+  showToast: (message: string, type?: 'success' | 'error') => void;
+  hideToast: () => void;
 };
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -25,6 +28,14 @@ export function DashboardProvider({
   initialData: any;
 }) {
   const [data, setData] = useState(initialData);
+  const [toastMessage, setToastMessage] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' = 'error') => {
+    setToastMessage({ message, type });
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const hideToast = () => setToastMessage(null);
 
   const updateSectionField = (section: string, field: string, value: any) => {
     setData((prev: any) => ({
@@ -39,7 +50,7 @@ export function DashboardProvider({
   const updateArrayItem = (section: string, arrayField: string, index: number, field: string, value: any) => {
     setData((prev: any) => {
       const newArray = [...(prev[section]?.[arrayField] || [])];
-      
+
       if (newArray[index]) {
         // Special logic: If setting pricingCards mainSeparator to true, set all others to false
         if (section === "pricing" && arrayField === "pricingCards" && field === "mainSeparator" && value === true) {
@@ -132,9 +143,23 @@ export function DashboardProvider({
         addTopLevelArrayItem,
         removeTopLevelArrayItem,
         initialData,
+        toastMessage,
+        showToast,
+        hideToast,
       }}
     >
       {children}
+      {toastMessage && (
+        <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl z-[100] flex items-center gap-3 transition-all duration-300 ${toastMessage.type === 'error' ? 'bg-error text-white' : 'bg-[#4CAF50] text-white'}`}>
+          <span className="material-symbols-outlined text-[20px]">
+            {toastMessage.type === 'error' ? 'error' : 'check_circle'}
+          </span>
+          <span className="font-button text-[14px]">{toastMessage.message}</span>
+          <button onClick={hideToast} className="material-symbols-outlined text-[16px] ml-2 opacity-80 hover:opacity-100 transition-opacity">
+            close
+          </button>
+        </div>
+      )}
     </DashboardContext.Provider>
   );
 }

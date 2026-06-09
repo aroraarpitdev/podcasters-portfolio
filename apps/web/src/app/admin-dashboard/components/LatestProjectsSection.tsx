@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function LatestProjectsSection() {
-  const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
+  const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem, showToast } = useDashboardContext();
   const [isExpanded, setIsExpanded] = useState(true);
   const [expandedFullEpisodes, setExpandedFullEpisodes] = useState<Record<number, boolean>>({});
   const [expandedAudioBooks, setExpandedAudioBooks] = useState<Record<number, boolean>>({});
@@ -65,6 +65,10 @@ export default function LatestProjectsSection() {
             <button
               className="flex items-center gap-2 px-4 py-1.5 border border-primary/30 text-primary font-button text-[12px] uppercase hover:bg-primary/10 transition-all active:scale-95"
               onClick={() => {
+                if (fullEpisodes.length >= 3) {
+                  showToast("You can only add up to 3 Full Episodes.", "error");
+                  return;
+                }
                 const newItem = { videoUrl: "", thumbnailURL: "", videoHeading: "New Video", videoSubHeading: "", viewCounts: "" };
                 addArrayItem("latestProjects", "fullEpisodes", newItem);
                 setExpandedFullEpisodes(prev => {
@@ -131,6 +135,10 @@ export default function LatestProjectsSection() {
             <button
               className="flex items-center gap-2 px-4 py-1.5 border border-primary/30 text-primary font-button text-[12px] uppercase hover:bg-primary/10 transition-all active:scale-95"
               onClick={() => {
+                if (audioBook.length >= 3) {
+                  showToast("You can only add up to 3 Audio Books.", "error");
+                  return;
+                }
                 const newItem = { ctaText: "", ctaLink: "", thumbnailURL: "", audioHeading: "New Audio", audioSubHeading: "", viewCounts: "" };
                 addArrayItem("latestProjects", "audioBook", newItem);
                 setExpandedAudioBooks(prev => {
@@ -201,6 +209,10 @@ export default function LatestProjectsSection() {
             <button
               className="flex items-center gap-2 px-4 py-1.5 border border-primary/30 text-primary font-button text-[12px] uppercase hover:bg-primary/10 transition-all active:scale-95"
               onClick={() => {
+                if (shorts.length >= 8) {
+                  showToast("You can only add up to 8 Shorts.", "error");
+                  return;
+                }
                 const newItem = { shortsUrl: "", thumbnailURL: "" };
                 addArrayItem("latestProjects", "shorts", newItem);
                 setExpandedShorts(prev => {
