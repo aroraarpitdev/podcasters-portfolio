@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
+import { ImageUploader } from "./ImageUploader";
 
 export default function HeroSection() {
   const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem, showToast } = useDashboardContext();
@@ -162,11 +163,10 @@ export default function HeroSection() {
               <label className="font-label-caps text-label-caps text-[#F0EDE680] uppercase opacity-60">
                 Hero Image URL
               </label>
-              <input
-                className="bg-[#111111] border border-[#9f8e7a] focus:border-primary text-on-background font-input text-input p-[14px] outline-none transition-all"
-                type="text"
-                value={heroData.imageUrl || ""}
-                onChange={(e) => updateSectionField("hero", "imageUrl", e.target.value)}
+              <ImageUploader
+                currentUrl={heroData.imageUrl}
+                onUpload={(url) => updateSectionField("hero", "imageUrl", url)}
+                label="Upload Hero Image"
               />
             </div>
             <div className="flex flex-col gap-2">
