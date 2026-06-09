@@ -41,3 +41,8 @@ export async function loginAction(username: string, pass: string) {
     return { success: false, error: 'server', message: 'Server error' };
   }
 }
+
+export async function logoutAction() {
+  const cookieStore = await cookies();
+  cookieStore.delete('auth_token');
+}
