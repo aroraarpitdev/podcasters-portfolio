@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-export function Showcase() {
+export function Showcase({ data }: { data: any }) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -85,14 +85,16 @@ export function Showcase() {
     };
   }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove]);
 
+  if (!data) return null;
+
   return (
     <section className="py-section-gap bg-surface-container-lowest" id="work">
       <div className="max-w-[860px] mx-auto px-container-padding text-center mb-10">
         <h2 className="font-headline-lg text-[36px] md:text-headline-lg mb-4 text-on-surface">
-          The Transformation
+          {data.heading}
         </h2>
         <p className="text-on-surface/70 font-medium">
-          Drag the slider to see how we turn raw footage into cinematic assets.
+          {data.subheading}
         </p>
       </div>
       <div className="w-full max-w-[860px] mx-auto md:px-container-padding">
@@ -115,7 +117,7 @@ export function Showcase() {
             <img
               alt="Raw Footage"
               className="w-full h-full object-cover pointer-events-none"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZkNJZr3WsozOQCQlNp3nCwKUNb2Zoj-OFHOFCx82OMMDbAqoR9pRCEJj1jZYpUJ7OjPMC0HtXRnmTfih5DYr1aABMPlsWuMVBCCZqWlPi0ZLq9wxzVeM7xGap8nE3ln7hH-JXSC1COBmy2YcztPR68eQRLyVt5GhGXo2w1d0knXWETXTBoiZO8eKaTTKuTnPwEKoweb9XnFr-ykQT2C2nN352DhiYhv5TzmwQxCk23XaLZm28bb4SM55XHqkvm6ZRyA-LdjexVT0"
+              src={data.rawImageUrl || "https://lh3.googleusercontent.com/aida-public/AB6AXuBZkNJZr3WsozOQCQlNp3nCwKUNb2Zoj-OFHOFCx82OMMDbAqoR9pRCEJj1jZYpUJ7OjPMC0HtXRnmTfih5DYr1aABMPlsWuMVBCCZqWlPi0ZLq9wxzVeM7xGap8nE3ln7hH-JXSC1COBmy2YcztPR68eQRLyVt5GhGXo2w1d0knXWETXTBoiZO8eKaTTKuTnPwEKoweb9XnFr-ykQT2C2nN352DhiYhv5TzmwQxCk23XaLZm28bb4SM55XHqkvm6ZRyA-LdjexVT0"}
             />
             <div className="absolute top-4 left-4 bg-black/70 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-white">
               Raw
@@ -126,33 +128,27 @@ export function Showcase() {
             className="absolute top-0 right-0 h-full overflow-hidden"
             style={{ width: `${100 - sliderPosition}%` }}
           >
-            {/* The image inside needs to be the exact size of the container, aligned to the right side, wait, no.
-                The HTML implementation uses an absolute container for the image.
-                To correctly crop the right side but keep the image fixed relative to the container:
-                The child image should have width: container_width (860px ideally, or 100vw).
-                Better approach: Make the child absolute right-0 and width of container.
-            */}
             <div
               className="absolute top-0 right-0 h-full w-[100vw] md:w-[860px] pointer-events-none"
               style={{
-                width: containerRef.current ? `${containerRef.current.getBoundingClientRect().width}px` : undefined // Will use Tailwind classes if not loaded
+                width: containerRef.current ? `${containerRef.current.getBoundingClientRect().width}px` : undefined
               }}
             >
               <img
                 alt="Edited Footage"
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDIgZooRrfLk3HYSAPenJVzQXG8MF65SeF7GEpfZdy8M0C-r6fTUU8eDi8n8bPjQpx7gj1BVqSiEZli7pLOkMgkDQpwzLJZeJKenNa1glVXhuC5C5kbIpmlRKFS_Bhp-6jTaBns8oAJCE_0qFgPT0m9M7gRlYaUkhTJxDuvqEmZj_6LJsNlE0Uk95jHOUlDuEmuoZDxAcpc3DPWkOsePnajgwayp3brFMN1ouNldbBK3h3NII1ua0quOKZu2Mt6kBeRYllQyurCfI"
+                src={data.editedUrl || "https://lh3.googleusercontent.com/aida-public/AB6AXuDDIgZooRrfLk3HYSAPenJVzQXG8MF65SeF7GEpfZdy8M0C-r6fTUU8eDi8n8bPjQpx7gj1BVqSiEZli7pLOkMgkDQpwzLJZeJKenNa1glVXhuC5C5kbIpmlRKFS_Bhp-6jTaBns8oAJCE_0qFgPT0m9M7gRlYaUkhTJxDuvqEmZj_6LJsNlE0Uk95jHOUlDuEmuoZDxAcpc3DPWkOsePnajgwayp3brFMN1ouNldbBK3h3NII1ua0quOKZu2Mt6kBeRYllQyurCfI"}
               />
               <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-on-primary">
                 Edited
               </div>
               <div className="absolute bottom-6 right-6 text-right">
-                <div className="bg-primary text-on-primary px-3 py-1 font-bold rounded text-sm mb-1 inline-block">
-                  DYNAMIC CAPTIONS
+                <div className="bg-primary text-on-primary text-sm mb-1 px-3 py-1 font-bold rounded inline-block">
+                  {data.bottomTextBold}
                 </div>
                 <br />
-                <div className="bg-black text-on-surface px-2 py-1 font-bold rounded text-[10px] inline-block">
-                  CINEMATIC COLOR
+                <div className="bg-black text-on-surface text-[10px] px-3 py-1 font-bold rounded inline-block">
+                  {data.bottomTextLight}
                 </div>
               </div>
             </div>
