@@ -46,7 +46,6 @@ export async function getPageData() {
         }))
       }
     };
-    console.log(data)
     return data;
   } catch (error) {
     console.error("API Error: Falling back to local mock data.", error);
