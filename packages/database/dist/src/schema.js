@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testimonials = exports.pageContent = void 0;
+exports.users = exports.testimonials = exports.pageContent = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 exports.pageContent = (0, pg_core_1.pgTable)("page_content", {
     id: (0, pg_core_1.text)("id").primaryKey(), // e.g., 'home'
@@ -19,5 +19,13 @@ exports.testimonials = (0, pg_core_1.pgTable)("testimonials", {
     rating: (0, pg_core_1.integer)("rating").default(5).notNull(),
     category: (0, pg_core_1.text)("category"),
     isFeatured: (0, pg_core_1.boolean)("is_featured").default(false).notNull(),
+    createdAt: (0, pg_core_1.timestamp)("created_at").defaultNow().notNull(),
+});
+exports.users = (0, pg_core_1.pgTable)("users", {
+    id: (0, pg_core_1.uuid)("id").primaryKey().defaultRandom(),
+    username: (0, pg_core_1.text)("username").notNull().unique(),
+    passwordHash: (0, pg_core_1.text)("password_hash").notNull(),
+    failedLoginAttempts: (0, pg_core_1.integer)("failed_login_attempts").default(0).notNull(),
+    lockedUntil: (0, pg_core_1.timestamp)("locked_until"),
     createdAt: (0, pg_core_1.timestamp)("created_at").defaultNow().notNull(),
 });

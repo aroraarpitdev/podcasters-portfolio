@@ -2,16 +2,16 @@
   "name": "@podcastors/database",
   "version": "0.1.0",
   "private": true,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": "./dist/src/index.js",
+      "require": "./dist/src/index.js"
     },
     "./schema": {
-      "import": "./dist/schema.js",
-      "require": "./dist/schema.js"
+      "import": "./dist/src/schema.js",
+      "require": "./dist/src/schema.js"
     }
   },
   "scripts": {
@@ -23,10 +23,12 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.30.10",
     "postgres": "^3.4.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^25.9.2",
     "drizzle-kit": "^0.20.17",
     "typescript": "^5.4.5"
