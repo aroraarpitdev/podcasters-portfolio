@@ -2,8 +2,25 @@
 
 import { useEffect, useState } from "react";
 
+const getYouTubeEmbedUrl = (url: string) => {
+  if (!url) return '';
+  let videoId = '';
+  
+  if (url.includes('youtube.com/watch?v=')) {
+    videoId = url.split('v=')[1]?.split('&')[0];
+  } else if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1]?.split('?')[0];
+  } else if (url.includes('youtube.com/shorts/')) {
+    videoId = url.split('shorts/')[1]?.split('?')[0];
+  }
+  
+  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : '';
+};
+
 export function Portfolio({ data }: { data: any }) {
   const [activeTab, setActiveTab] = useState("FULL EPISODES");
+  const [playingFullEpisode, setPlayingFullEpisode] = useState<number | null>(null);
+  const [playingShort, setPlayingShort] = useState<number | null>(null);
   const tabs = data?.tabs || ["FULL EPISODES", "AUDIO BOOK", "SHORTS"];
 
   if (!data) return null;
@@ -40,23 +57,34 @@ export function Portfolio({ data }: { data: any }) {
         {activeTab === tabs[0] && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 view-content animate-in fade-in slide-in-from-bottom-4 duration-500">
             {data.fullEpisodes?.map((episode: any, index: number) => (
-              <div key={index} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4">
-                  <img
-                    alt={episode.videoHeading}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    src={episode.thumbnailURL}
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform">
-                      <span
-                        className="material-symbols-outlined text-on-primary text-3xl"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        play_arrow
-                      </span>
+              <div key={index} className="group">
+                <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4 group-hover:scale-105 transition-transform duration-700">
+                  {playingFullEpisode === index ? (
+                    <iframe
+                      src={getYouTubeEmbedUrl(episode.videoUrl)}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full absolute top-0 left-0 border-0"
+                    />
+                  ) : (
+                    <div className="w-full h-full cursor-pointer relative" onClick={() => setPlayingFullEpisode(index)}>
+                      <img
+                        alt={episode.videoHeading}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        src={episode.thumbnailURL}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform shadow-xl">
+                          <span
+                            className="material-symbols-outlined text-on-primary text-3xl"
+                            style={{ fontVariationSettings: "'FILL' 1" }}
+                          >
+                            play_arrow
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
@@ -114,13 +142,36 @@ export function Portfolio({ data }: { data: any }) {
                   {data.shorts?.map((short: any, index: number) => (
                     <div
                       key={index}
-                      className="w-[200px] md:w-[250px] shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-surface-container border border-on-surface/10 group cursor-pointer"
+                      className="w-[200px] md:w-[250px] shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-surface-container border border-on-surface/10 group"
                     >
-                      <img
-                        alt={`Short ${index}`}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        src={short.thumbnailURL}
-                      />
+                      <div className="w-full h-full relative group-hover:scale-110 transition-transform duration-700">
+                        {playingShort === index ? (
+                          <iframe
+                            src={getYouTubeEmbedUrl(short.shortsUrl)}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="w-full h-full absolute top-0 left-0 border-0"
+                          />
+                        ) : (
+                          <div className="w-full h-full cursor-pointer relative" onClick={() => setPlayingShort(index)}>
+                            <img
+                              alt={`Short ${index}`}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                              src={short.thumbnailURL}
+                            />
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-xl">
+                                <span
+                                  className="material-symbols-outlined text-on-primary text-3xl"
+                                  style={{ fontVariationSettings: "'FILL' 1" }}
+                                >
+                                  play_arrow
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

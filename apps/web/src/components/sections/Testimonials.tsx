@@ -1,14 +1,30 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+
+const getYouTubeEmbedUrl = (url: string) => {
+  if (!url) return '';
+  let videoId = '';
+  
+  if (url.includes('youtube.com/watch?v=')) {
+    videoId = url.split('v=')[1]?.split('&')[0];
+  } else if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1]?.split('?')[0];
+  } else if (url.includes('youtube.com/shorts/')) {
+    videoId = url.split('shorts/')[1]?.split('?')[0];
+  }
+  
+  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : '';
+};
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Testimonials({ data }: { data: any }) {
   const container = useRef<HTMLDivElement>(null);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   useGSAP(() => {
     const counters = gsap.utils.toArray(".counter") as HTMLElement[];
@@ -69,19 +85,30 @@ export function Testimonials({ data }: { data: any }) {
             <div key={`row1-${group}`} className="flex gap-6 animate-marquee-left px-3">
               {data.videoCards?.map((video: any, index: number) => (
                 <div key={`v-${index}`} className="w-[300px] shrink-0 bg-[#111111] p-6 rounded-xl border border-on-surface/10 flex flex-col gap-4 whitespace-normal">
-                  <div className="relative aspect-video rounded-lg overflow-hidden bg-surface-container">
-                    <img
-                      alt={video.videoAuthor}
-                      className="w-full h-full object-cover opacity-60"
-                      src={video.videoThumbnail || "https://lh3.googleusercontent.com/aida-public/AB6AXuCHT4PpzvX-4n6E2iWsVBKgdpln8s3PoRyZkKsvu_LKFhg-vqq729K2OnWZJtZcEwCQ8OiW10Tbg97F8TxTkgU36ICrRRtStySpXIUX7IzQamfIDKOkKM8Aj2lBlvyZztZIqf32VqgH1YC1ttbRVybbyZGo98wUtds8xecsOu4i96sHLbEo2utQdbxhzq1d5wKUHQI34kzqm36RAZkK1vKOZF2EQPV17FS7pfdg7KeBaHIFGJs4Q3e-C5ICo_vnm-Scw2ktZfAmP1A"}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                        <span className="material-symbols-outlined text-on-primary">
-                          play_arrow
-                        </span>
+                  <div className="relative aspect-video rounded-lg overflow-hidden bg-surface-container group">
+                    {playingVideo === `${group}-${index}` ? (
+                      <iframe
+                        src={getYouTubeEmbedUrl(video.videoUrl)}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full absolute top-0 left-0 border-0 z-10"
+                      />
+                    ) : (
+                      <div className="w-full h-full cursor-pointer relative" onClick={() => setPlayingVideo(`${group}-${index}`)}>
+                        <img
+                          alt={video.videoAuthor}
+                          className="w-full h-full object-cover opacity-60"
+                          src={video.videoThumbnail || "https://lh3.googleusercontent.com/aida-public/AB6AXuCHT4PpzvX-4n6E2iWsVBKgdpln8s3PoRyZkKsvu_LKFhg-vqq729K2OnWZJtZcEwCQ8OiW10Tbg97F8TxTkgU36ICrRRtStySpXIUX7IzQamfIDKOkKM8Aj2lBlvyZztZIqf32VqgH1YC1ttbRVybbyZGo98wUtds8xecsOu4i96sHLbEo2utQdbxhzq1d5wKUHQI34kzqm36RAZkK1vKOZF2EQPV17FS7pfdg7KeBaHIFGJs4Q3e-C5ICo_vnm-Scw2ktZfAmP1A"}
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                            <span className="material-symbols-outlined text-on-primary">
+                              play_arrow
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div>
                     <h5 className="font-bold text-on-surface">{video.videoAuthor}</h5>
