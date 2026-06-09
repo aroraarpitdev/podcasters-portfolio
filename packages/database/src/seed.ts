@@ -1,4 +1,5 @@
-import { db, pageContent, testimonials } from "./index";
+import { db, pageContent, testimonials, users } from "./index";
+import bcrypt from "bcryptjs";
 // @ts-ignore
 import pageData from "../../../apps/web/mockApiData.js";
 
@@ -22,6 +23,20 @@ async function seed() {
     });
     
     console.log("✅ Page content seeded successfully.");
+
+    // Seed default admin user
+    const passwordHash = await bcrypt.hash("studio123", 10);
+    await db.insert(users).values({
+      username: "admin",
+      passwordHash: passwordHash,
+      failedLoginAttempts: 0,
+      lockedUntil: null,
+    }).onConflictDoUpdate({
+      target: users.username,
+      set: { passwordHash: passwordHash, failedLoginAttempts: 0, lockedUntil: null }
+    });
+
+    console.log("✅ Default admin user seeded successfully.");
 
     // 2. Seed testimonials
     // Clear existing testimonials
