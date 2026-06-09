@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
+import { ImageUploader } from "./ImageUploader";
 
 export default function TestimonialsSection() {
   const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
@@ -189,7 +190,11 @@ export default function TestimonialsSection() {
                         </div>
                         <div className="flex flex-col gap-1">
                           <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Thumbnail URL</label>
-                          <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.videoThumbnail || ""} onChange={(e) => updateArrayItem("testimonials", "videoCards", index, "videoThumbnail", e.target.value)} />
+                          <ImageUploader
+                            currentUrl={item.videoThumbnail}
+                            onUpload={(url) => updateArrayItem("testimonials", "videoCards", index, "videoThumbnail", url)}
+                            label="Upload Thumbnail"
+                          />
                         </div>
                       </div>
                     )}

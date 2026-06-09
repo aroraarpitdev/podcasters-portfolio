@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
+import { ImageUploader } from "./ImageUploader";
 
 export default function LatestProjectsSection() {
   const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem, showToast } = useDashboardContext();
@@ -113,7 +114,11 @@ export default function LatestProjectsSection() {
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Thumbnail URL</label>
-                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.thumbnailURL || ""} onChange={(e) => updateArrayItem("latestProjects", "fullEpisodes", index, "thumbnailURL", e.target.value)} />
+                    <ImageUploader
+                      currentUrl={item.thumbnailURL}
+                      onUpload={(url) => updateArrayItem("latestProjects", "fullEpisodes", index, "thumbnailURL", url)}
+                      label="Upload Thumbnail"
+                    />
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">View Counts</label>
@@ -187,7 +192,11 @@ export default function LatestProjectsSection() {
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Thumbnail URL</label>
-                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.thumbnailURL || ""} onChange={(e) => updateArrayItem("latestProjects", "audioBook", index, "thumbnailURL", e.target.value)} />
+                    <ImageUploader
+                      currentUrl={item.thumbnailURL}
+                      onUpload={(url) => updateArrayItem("latestProjects", "audioBook", index, "thumbnailURL", url)}
+                      label="Upload Thumbnail"
+                    />
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">View Counts</label>
@@ -249,7 +258,11 @@ export default function LatestProjectsSection() {
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Thumbnail URL</label>
-                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none text-[12px]" type="text" value={item.thumbnailURL || ""} onChange={(e) => updateArrayItem("latestProjects", "shorts", index, "thumbnailURL", e.target.value)} />
+                    <ImageUploader
+                      currentUrl={item.thumbnailURL}
+                      onUpload={(url) => updateArrayItem("latestProjects", "shorts", index, "thumbnailURL", url)}
+                      label="Upload Thumbnail"
+                    />
                   </div>
                 </div>
                 )}
