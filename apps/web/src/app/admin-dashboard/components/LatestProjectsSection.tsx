@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function LatestProjectsSection() {
   const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [expandedFullEpisodes, setExpandedFullEpisodes] = useState<Record<number, boolean>>({});
+  const [expandedAudioBooks, setExpandedAudioBooks] = useState<Record<number, boolean>>({});
+  const [expandedShorts, setExpandedShorts] = useState<Record<number, boolean>>({});
+
   const projectsData = data.latestProjects || {};
   const fullEpisodes = projectsData.fullEpisodes || [];
   const audioBook = projectsData.audioBook || [];
@@ -15,10 +20,16 @@ export default function LatestProjectsSection() {
           <span className="material-symbols-outlined text-[20px]">video_library</span>
           Latest Projects
         </h3>
-        <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">
+        <span 
+          className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-transform duration-300"
+          style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
           expand_less
         </span>
       </div>
+      
+      {isExpanded && (
       <div className="p-6 space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-2">
@@ -56,6 +67,12 @@ export default function LatestProjectsSection() {
               onClick={() => {
                 const newItem = { videoUrl: "", thumbnailURL: "", videoHeading: "New Video", videoSubHeading: "", viewCounts: "" };
                 addArrayItem("latestProjects", "fullEpisodes", newItem);
+                setExpandedFullEpisodes(prev => {
+                  const next = { ...prev };
+                  const shifted: Record<number, boolean> = { 0: true };
+                  Object.keys(next).forEach(key => { shifted[parseInt(key) + 1] = next[parseInt(key) as unknown as number]; });
+                  return shifted;
+                });
               }}
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
@@ -63,9 +80,21 @@ export default function LatestProjectsSection() {
             </button>
           </div>
           <div className="space-y-3">
-            {fullEpisodes.map((item: any, index: number) => (
-              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex gap-4 relative group">
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {fullEpisodes.map((item: any, index: number) => {
+              const isItemExpanded = expandedFullEpisodes[index] ?? (index === 0);
+              return (
+              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setExpandedFullEpisodes(prev => ({...prev, [index]: !isItemExpanded}))} className="text-[#F0EDE680] hover:text-primary transition-colors">
+                      <span className="material-symbols-outlined text-[20px] transition-transform duration-300" style={{ transform: isItemExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>expand_more</span>
+                    </button>
+                    <span className="text-[12px] text-on-surface font-bold uppercase">{item.videoHeading || "Untitled Episode"}</span>
+                  </div>
+                  <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error" onClick={() => removeArrayItem("latestProjects", "fullEpisodes", index)}>delete</button>
+                </div>
+                {isItemExpanded && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Heading</label>
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.videoHeading || ""} onChange={(e) => updateArrayItem("latestProjects", "fullEpisodes", index, "videoHeading", e.target.value)} />
@@ -87,9 +116,9 @@ export default function LatestProjectsSection() {
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.viewCounts || ""} onChange={(e) => updateArrayItem("latestProjects", "fullEpisodes", index, "viewCounts", e.target.value)} />
                   </div>
                 </div>
-                <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error h-fit mt-6" onClick={() => removeArrayItem("latestProjects", "fullEpisodes", index)}>delete</button>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
 
@@ -104,6 +133,12 @@ export default function LatestProjectsSection() {
               onClick={() => {
                 const newItem = { ctaText: "", ctaLink: "", thumbnailURL: "", audioHeading: "New Audio", audioSubHeading: "", viewCounts: "" };
                 addArrayItem("latestProjects", "audioBook", newItem);
+                setExpandedAudioBooks(prev => {
+                  const next = { ...prev };
+                  const shifted: Record<number, boolean> = { 0: true };
+                  Object.keys(next).forEach(key => { shifted[parseInt(key) + 1] = next[parseInt(key) as unknown as number]; });
+                  return shifted;
+                });
               }}
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
@@ -111,9 +146,21 @@ export default function LatestProjectsSection() {
             </button>
           </div>
           <div className="space-y-3">
-            {audioBook.map((item: any, index: number) => (
-              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex gap-4 relative group">
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {audioBook.map((item: any, index: number) => {
+              const isItemExpanded = expandedAudioBooks[index] ?? (index === 0);
+              return (
+              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setExpandedAudioBooks(prev => ({...prev, [index]: !isItemExpanded}))} className="text-[#F0EDE680] hover:text-primary transition-colors">
+                      <span className="material-symbols-outlined text-[20px] transition-transform duration-300" style={{ transform: isItemExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>expand_more</span>
+                    </button>
+                    <span className="text-[12px] text-on-surface font-bold uppercase">{item.audioHeading || "Untitled Audio Book"}</span>
+                  </div>
+                  <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error" onClick={() => removeArrayItem("latestProjects", "audioBook", index)}>delete</button>
+                </div>
+                {isItemExpanded && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Heading</label>
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.audioHeading || ""} onChange={(e) => updateArrayItem("latestProjects", "audioBook", index, "audioHeading", e.target.value)} />
@@ -139,9 +186,9 @@ export default function LatestProjectsSection() {
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.viewCounts || ""} onChange={(e) => updateArrayItem("latestProjects", "audioBook", index, "viewCounts", e.target.value)} />
                   </div>
                 </div>
-                <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error h-fit mt-6" onClick={() => removeArrayItem("latestProjects", "audioBook", index)}>delete</button>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
 
@@ -156,6 +203,12 @@ export default function LatestProjectsSection() {
               onClick={() => {
                 const newItem = { shortsUrl: "", thumbnailURL: "" };
                 addArrayItem("latestProjects", "shorts", newItem);
+                setExpandedShorts(prev => {
+                  const next = { ...prev };
+                  const shifted: Record<number, boolean> = { 0: true };
+                  Object.keys(next).forEach(key => { shifted[parseInt(key) + 1] = next[parseInt(key) as unknown as number]; });
+                  return shifted;
+                });
               }}
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
@@ -163,9 +216,21 @@ export default function LatestProjectsSection() {
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-            {shorts.map((item: any, index: number) => (
-              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex gap-4 relative group">
-                <div className="flex-1 flex flex-col gap-2">
+            {shorts.map((item: any, index: number) => {
+              const isItemExpanded = expandedShorts[index] ?? (index === 0);
+              return (
+              <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setExpandedShorts(prev => ({...prev, [index]: !isItemExpanded}))} className="text-[#F0EDE680] hover:text-primary transition-colors">
+                      <span className="material-symbols-outlined text-[20px] transition-transform duration-300" style={{ transform: isItemExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>expand_more</span>
+                    </button>
+                    <span className="text-[12px] text-on-surface font-bold uppercase">Short #{index + 1}</span>
+                  </div>
+                  <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error" onClick={() => removeArrayItem("latestProjects", "shorts", index)}>delete</button>
+                </div>
+                {isItemExpanded && (
+                <div className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Video URL</label>
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none text-[12px]" type="text" value={item.shortsUrl || ""} onChange={(e) => updateArrayItem("latestProjects", "shorts", index, "shortsUrl", e.target.value)} />
@@ -175,13 +240,13 @@ export default function LatestProjectsSection() {
                     <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none text-[12px]" type="text" value={item.thumbnailURL || ""} onChange={(e) => updateArrayItem("latestProjects", "shorts", index, "thumbnailURL", e.target.value)} />
                   </div>
                 </div>
-                <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error absolute top-2 right-2" onClick={() => removeArrayItem("latestProjects", "shorts", index)}>close</button>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
-
       </div>
+      )}
     </div>
   );
 }

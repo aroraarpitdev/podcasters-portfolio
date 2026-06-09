@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function TransformationSection() {
   const { data, updateSectionField } = useDashboardContext();
+  const [isExpanded, setIsExpanded] = useState(true);
   const transData = data.transformation || {};
 
   return (
@@ -12,10 +13,15 @@ export default function TransformationSection() {
           <span className="material-symbols-outlined text-[20px]">compare</span>
           Transformation
         </h3>
-        <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">
+        <span 
+          className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-transform duration-300"
+          style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
           expand_less
         </span>
       </div>
+      {isExpanded && (
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-2">
           <label className="font-label-caps text-label-caps text-[#F0EDE680] uppercase opacity-60">
@@ -86,6 +92,7 @@ export default function TransformationSection() {
           />
         </div>
       </div>
+      )}
     </div>
   );
 }

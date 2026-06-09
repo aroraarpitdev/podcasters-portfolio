@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function WorkflowSection() {
   const { data, updateSectionField, updateArrayItem, addArrayItem, removeArrayItem } = useDashboardContext();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [expandedSteps, setExpandedSteps] = useState<Record<number, boolean>>({});
+
   const workflowData = data.workflow || {};
   const steps = workflowData.steps || [];
 
@@ -13,10 +16,16 @@ export default function WorkflowSection() {
           <span className="material-symbols-outlined text-[20px]">account_tree</span>
           Workflow
         </h3>
-        <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">
+        <span 
+          className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-transform duration-300"
+          style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
           expand_less
         </span>
       </div>
+      
+      {isExpanded && (
       <div className="p-6 space-y-8">
         <div className="flex flex-col gap-2 md:w-1/2">
           <label className="font-label-caps text-label-caps text-[#F0EDE680] uppercase opacity-60">
@@ -41,6 +50,12 @@ export default function WorkflowSection() {
               onClick={() => {
                 const newItem = { id: Date.now(), count: "00", heading: "New Step", subheading: "" };
                 addArrayItem("workflow", "steps", newItem);
+                setExpandedSteps(prev => {
+                  const next = { ...prev };
+                  const shifted: Record<number, boolean> = { 0: true };
+                  Object.keys(next).forEach(key => { shifted[parseInt(key) + 1] = next[parseInt(key) as unknown as number]; });
+                  return shifted;
+                });
               }}
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
@@ -48,26 +63,41 @@ export default function WorkflowSection() {
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {steps.map((item: any, index: number) => (
+            {steps.map((item: any, index: number) => {
+              const isItemExpanded = expandedSteps[index] ?? (index === 0);
+              return (
               <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
-                <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error absolute top-2 right-2 z-10" onClick={() => removeArrayItem("workflow", "steps", index)}>delete</button>
-                <div className="flex flex-col gap-1 mt-4">
-                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Count (e.g. 01)</label>
-                  <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.count || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "count", e.target.value)} />
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setExpandedSteps(prev => ({...prev, [index]: !isItemExpanded}))} className="text-[#F0EDE680] hover:text-primary transition-colors">
+                      <span className="material-symbols-outlined text-[20px] transition-transform duration-300" style={{ transform: isItemExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>expand_more</span>
+                    </button>
+                    <span className="text-[12px] text-on-surface font-bold uppercase">{item.heading || "Untitled Step"}</span>
+                  </div>
+                  <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error" onClick={() => removeArrayItem("workflow", "steps", index)}>delete</button>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Heading</label>
-                  <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.heading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "heading", e.target.value)} />
+                {isItemExpanded && (
+                <div className="flex flex-col gap-4 mt-2">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Count (e.g. 01)</label>
+                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.count || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "count", e.target.value)} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Heading</label>
+                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.heading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "heading", e.target.value)} />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Subheading</label>
+                    <textarea className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none resize-none" rows={3} value={item.subheading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "subheading", e.target.value)} />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Subheading</label>
-                  <textarea className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none resize-none" rows={3} value={item.subheading || ""} onChange={(e) => updateArrayItem("workflow", "steps", index, "subheading", e.target.value)} />
-                </div>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }

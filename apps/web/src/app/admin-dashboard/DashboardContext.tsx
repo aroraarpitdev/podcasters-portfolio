@@ -12,6 +12,7 @@ type DashboardContextType = {
   updateTopLevelArrayItem: (arrayField: string, index: number, field: string, value: any) => void;
   addTopLevelArrayItem: (arrayField: string, defaultItem: any) => void;
   removeTopLevelArrayItem: (arrayField: string, index: number) => void;
+  initialData: any;
 };
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -38,8 +39,16 @@ export function DashboardProvider({
   const updateArrayItem = (section: string, arrayField: string, index: number, field: string, value: any) => {
     setData((prev: any) => {
       const newArray = [...(prev[section]?.[arrayField] || [])];
+      
       if (newArray[index]) {
-        newArray[index] = { ...newArray[index], [field]: value };
+        // Special logic: If setting pricingCards mainSeparator to true, set all others to false
+        if (section === "pricing" && arrayField === "pricingCards" && field === "mainSeparator" && value === true) {
+          for (let i = 0; i < newArray.length; i++) {
+            newArray[i] = { ...newArray[i], mainSeparator: i === index };
+          }
+        } else {
+          newArray[index] = { ...newArray[index], [field]: value };
+        }
       }
       return {
         ...prev,
@@ -122,6 +131,7 @@ export function DashboardProvider({
         updateTopLevelArrayItem,
         addTopLevelArrayItem,
         removeTopLevelArrayItem,
+        initialData,
       }}
     >
       {children}

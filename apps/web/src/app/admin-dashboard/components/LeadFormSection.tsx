@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDashboardContext } from "../DashboardContext";
 
 export default function LeadFormSection() {
   const { data, updateSectionField, setData } = useDashboardContext();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [expandedIcons, setExpandedIcons] = useState<Record<number, boolean>>({});
+
   const leadForm = data.leadForm || {};
   const leftSection = leadForm.leftSection || {};
   const rightForm = leadForm.rightForm || {};
@@ -54,6 +57,12 @@ export default function LeadFormSection() {
         }
       };
     });
+    setExpandedIcons(prev => {
+      const next = { ...prev };
+      const shifted: Record<number, boolean> = { 0: true };
+      Object.keys(next).forEach(key => { shifted[parseInt(key) + 1] = next[parseInt(key) as unknown as number]; });
+      return shifted;
+    });
   };
 
   const removeIcon = (index: number) => {
@@ -79,10 +88,16 @@ export default function LeadFormSection() {
           <span className="material-symbols-outlined text-[20px]">contact_mail</span>
           Lead Form
         </h3>
-        <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">
+        <span 
+          className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-transform duration-300"
+          style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
           expand_less
         </span>
       </div>
+      
+      {isExpanded && (
       <div className="p-6 space-y-8">
         
         {/* Left Section */}
@@ -107,25 +122,39 @@ export default function LeadFormSection() {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {icons.map((item: any, index: number) => (
+              {icons.map((item: any, index: number) => {
+                const isItemExpanded = expandedIcons[index] ?? (index === 0);
+                return (
                 <div key={index} className="bg-[#111111] border border-[#2A2A2A] rounded-lg p-4 flex flex-col gap-4 relative group">
-                  <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error absolute top-2 right-2 z-10" onClick={() => removeIcon(index)}>delete</button>
-                  <div className="flex flex-col gap-1 pr-6">
-                    <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Material Icon String (e.g. mail)</label>
-                    <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconUrl || ""} onChange={(e) => updateIconArray(index, "iconUrl", e.target.value)} />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Text</label>
-                      <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconText || ""} onChange={(e) => updateIconArray(index, "iconText", e.target.value)} />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <button onClick={() => setExpandedIcons(prev => ({...prev, [index]: !isItemExpanded}))} className="text-[#F0EDE680] hover:text-primary transition-colors">
+                        <span className="material-symbols-outlined text-[20px] transition-transform duration-300" style={{ transform: isItemExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>expand_more</span>
+                      </button>
+                      <span className="text-[12px] text-on-surface font-bold uppercase">{item.iconText || "Untitled Icon"}</span>
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Sub Text</label>
-                      <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconSubText || ""} onChange={(e) => updateIconArray(index, "iconSubText", e.target.value)} />
+                    <button className="material-symbols-outlined text-[18px] text-[#F0EDE680] hover:text-error" onClick={() => removeIcon(index)}>delete</button>
+                  </div>
+                  {isItemExpanded && (
+                  <div className="flex flex-col gap-4 mt-2">
+                    <div className="flex flex-col gap-1 pr-6">
+                      <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Material Icon String (e.g. mail)</label>
+                      <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconUrl || ""} onChange={(e) => updateIconArray(index, "iconUrl", e.target.value)} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Text</label>
+                        <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconText || ""} onChange={(e) => updateIconArray(index, "iconText", e.target.value)} />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] text-[#F0EDE680] opacity-40 uppercase font-bold">Sub Text</label>
+                        <input className="w-full bg-[#0A0A0A] border border-[#2A2A2A] text-on-background p-2 outline-none" type="text" value={item.iconSubText || ""} onChange={(e) => updateIconArray(index, "iconSubText", e.target.value)} />
+                      </div>
                     </div>
                   </div>
+                  )}
                 </div>
-              ))}
+              )})}
             </div>
           </div>
         </div>
@@ -164,6 +193,7 @@ export default function LeadFormSection() {
         </div>
 
       </div>
+      )}
     </div>
   );
 }
