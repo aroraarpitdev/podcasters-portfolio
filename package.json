@@ -8,6 +8,8 @@
     "build:web": "pnpm --filter web build",
     "build:api": "pnpm --filter api build",
     "start:web": "pnpm --filter web start",
-    "start:api": "pnpm --filter api start"
+    "start:api": "pnpm --filter api start",
+    "docker:up": "docker compose --env-file .env.development up -d",
+    "docker:down": "docker compose down"
   }
 }
