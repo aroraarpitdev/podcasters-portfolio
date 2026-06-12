@@ -4,21 +4,7 @@ import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
-const getYouTubeEmbedUrl = (url: string) => {
-  if (!url) return '';
-  let videoId = '';
-  
-  if (url.includes('youtube.com/watch?v=')) {
-    videoId = url.split('v=')[1]?.split('&')[0];
-  } else if (url.includes('youtu.be/')) {
-    videoId = url.split('youtu.be/')[1]?.split('?')[0];
-  } else if (url.includes('youtube.com/shorts/')) {
-    videoId = url.split('shorts/')[1]?.split('?')[0];
-  }
-  
-  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : '';
-};
+import { getYouTubeEmbedUrl } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +33,8 @@ export function Testimonials({ data }: { data: any }) {
       });
     });
   }, { scope: container });
+
+  console.log(data.videoCards)
 
   if (!data) return null;
 
@@ -88,7 +76,7 @@ export function Testimonials({ data }: { data: any }) {
                   <div className="relative aspect-video rounded-lg overflow-hidden bg-surface-container group">
                     {playingVideo === `${group}-${index}` ? (
                       <iframe
-                        src={getYouTubeEmbedUrl(video.videoUrl)}
+                        src={getYouTubeEmbedUrl(video.videoUrl) || undefined}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full absolute top-0 left-0 border-0 z-10"

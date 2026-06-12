@@ -1,21 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const getYouTubeEmbedUrl = (url: string) => {
-  if (!url) return '';
-  let videoId = '';
-  
-  if (url.includes('youtube.com/watch?v=')) {
-    videoId = url.split('v=')[1]?.split('&')[0];
-  } else if (url.includes('youtu.be/')) {
-    videoId = url.split('youtu.be/')[1]?.split('?')[0];
-  } else if (url.includes('youtube.com/shorts/')) {
-    videoId = url.split('shorts/')[1]?.split('?')[0];
-  }
-  
-  return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : '';
-};
+import { getYouTubeEmbedUrl } from "@/lib/utils";
 
 export function Portfolio({ data }: { data: any }) {
   const [activeTab, setActiveTab] = useState("FULL EPISODES");
@@ -61,7 +47,7 @@ export function Portfolio({ data }: { data: any }) {
                 <div className="relative overflow-hidden rounded-xl aspect-video bg-surface-container border border-on-surface/10 mb-4 group-hover:scale-105 transition-transform duration-700">
                   {playingFullEpisode === index ? (
                     <iframe
-                      src={getYouTubeEmbedUrl(episode.videoUrl)}
+                      src={getYouTubeEmbedUrl(episode.videoUrl) || undefined}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full absolute top-0 left-0 border-0"
@@ -71,7 +57,7 @@ export function Portfolio({ data }: { data: any }) {
                       <img
                         alt={episode.videoHeading}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        src={episode.thumbnailURL}
+                        src={episode.thumbnailURL || undefined}
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                         <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform shadow-xl">
@@ -113,7 +99,7 @@ export function Portfolio({ data }: { data: any }) {
                   <img
                     alt={book.audioHeading}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    src={book.thumbnailURL}
+                    src={book.thumbnailURL || undefined}
                   />
                 </div>
                 <div className="px-2">
@@ -123,10 +109,15 @@ export function Portfolio({ data }: { data: any }) {
                   <p className="text-on-surface/60 text-sm mb-6 text-center line-clamp-2">
                     {book.audioSubHeading}
                   </p>
-                  <button className="w-full py-3 bg-[#22C55E] text-white rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                  <a
+                    href={book.ctaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-[#22C55E] text-white rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity cursor-pointer"
+                  >
                     <span className="material-symbols-outlined text-sm">headphones</span>
                     {book.ctaText}
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -147,7 +138,7 @@ export function Portfolio({ data }: { data: any }) {
                       <div className="w-full h-full relative group-hover:scale-110 transition-transform duration-700">
                         {playingShort === index ? (
                           <iframe
-                            src={getYouTubeEmbedUrl(short.shortsUrl)}
+                            src={getYouTubeEmbedUrl(short.shortsUrl) || undefined}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                             className="w-full h-full absolute top-0 left-0 border-0"
@@ -157,7 +148,7 @@ export function Portfolio({ data }: { data: any }) {
                             <img
                               alt={`Short ${index}`}
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                              src={short.thumbnailURL}
+                              src={short.thumbnailURL || undefined}
                             />
                             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                               <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-xl">

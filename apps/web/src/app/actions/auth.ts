@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000").replace(/\/+$/, '');
 
 export async function loginAction(username: string, pass: string) {
   try {
@@ -15,10 +15,18 @@ export async function loginAction(username: string, pass: string) {
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`[loginAction] Failed: ${response.status} ${response.statusText} - ${errorText}`);
+      
       if (response.status === 403) {
         return { success: false, error: 'locked', message: 'Account locked. Try again later.' };
       }
-      return { success: false, error: 'invalid', message: 'Invalid credentials' };
+      
+      if (response.status === 401) {
+        return { success: false, error: 'invalid', message: 'Invalid credentials' };
+      }
+      
+      return { success: false, error: 'server', message: `Server error: ${response.status}` };
     }
 
     const data = await response.json();

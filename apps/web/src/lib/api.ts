@@ -55,7 +55,6 @@ export async function getPageData() {
 }
 
 export async function savePageData(payload: any) {
-  console.log("Saving payload to backend:", JSON.stringify(payload, null, 2));
   const response = await fetch(`${API_BASE_URL}/page-content/home`, {
     method: "PUT",
     headers: {

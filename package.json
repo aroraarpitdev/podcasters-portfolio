@@ -10,6 +10,11 @@
     "start:web": "pnpm --filter web start",
     "start:api": "pnpm --filter api start",
     "docker:up": "docker compose --env-file .env.development up -d",
-    "docker:down": "docker compose down"
+    "docker:down": "docker compose down",
+    "db:push:prod": "dotenv -e .env.production -- pnpm --filter @podcastors/database db:push",
+    "db:seed:prod": "dotenv -e .env.production -- pnpm --filter @podcastors/database db:seed"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0"
   }
 }

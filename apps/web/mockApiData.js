@@ -51,21 +51,21 @@ const pageData = {
         subheading: "Helping creators dominate every platform.",
         fullEpisodes: [
             {
-                videoUrl: "Video URL",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "https://lh3.googleusercontent.com/aida-public/AB6AXuD6pqFVNRccG5No-3OFGLqEDVkHHIpJInvegkrpURpZb1t7iozj14xO8U1fwb1i_X3k87HlTTOtZEFhR5RpEXyUawjahC5pjp0509G5BPB7UZIX9xnBOabyEH2shuygx6JHR87zSPsYCGErUI0YDkapEuQu52_rZNefLX9Qk-Ant3W4IHD17JGNR5efPbYh5ym3IvaQdJ9RKvcLMFaZMXFDZpRpXjA6c5Mk8oYRuky7Zk7HIoZ7KCR-5U31U5iR-VUr3vKhxhGSNjY",
                 videoHeading: "The Business Lab",
                 videoSubHeading: "Full Episode Production",
                 viewCounts: "1.2M VIEWS"
             },
             {
-                videoUrl: "video url",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "https://lh3.googleusercontent.com/aida-public/AB6AXuCVzfX7htPWE4os00k88q6uSnheWM_Nc2frGqh8XQI-RqbMR9Wy_5QV7rlMRRznMYz94dTGBk-_CzDXajGX2Oqnvq06viIk_1dVd8ieVv2OXXqZ-OdpJCEEilLL2x7gHqom5YKroPhmv-FK_YJkUHv3ZztYh3f6r_JvXaMGbV_9N3WftSqqhYrCLOY5aCBjNcT_lLgaFOsFjdmVfdTdS3ukY5-KDcIH9BWlV_JUdQh8JfBovyHCHRo_WBfmU6wjp6leM9EsGV8CZqY",
                 videoHeading: "Founders Series",
                 videoSubHeading: "Vertical Shorts Strategy",
                 viewCounts: "850K VIEWS"
             },
             {
-                videoUrl: "Video URL",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "https://lh3.googleusercontent.com/aida-public/AB6AXuDN_tN4D2w2lBdYzwjtadNmVylFrOR9_b5mckuintnzD45FyB3mmR3AlSNkA20diz_CaG2x5xbuDfT9caIDh5k7i3v-2QzRukvkiI-EFFyYYS8L0WJA8N6u1zt5TOuUvgVGf6RRoLamCyhh0IRVMYhVliOfWJQK5X1OMW6DiPKNoAXf5W-5cP4-71-FjFRmWpbjDSuqFxGVjIwmGWlqXPv8O-W2T50vJkOBhlQfGowWoiMnT2bcj3_uCOA_0Sp12DBNJ1kYTAv0z7U",
                 videoHeading: "Creative Minds",
                 videoSubHeading: "Hybrid Production",
@@ -99,35 +99,35 @@ const pageData = {
         ],
         shorts: [
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_split.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_portrait.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_split.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_portrait.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_split.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_portrait.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_split.png"
             },
             {
-                shortsUrl: "Video URL",
+                shortsUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 thumbnailURL: "/images/short_portrait.png"
             }
         ]
@@ -364,7 +364,7 @@ const pageData = {
         ],
         videoCards: [
             {
-                videoUrl: "https://example.com/video1",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuCHT4PpzvX-4n6E2iWsVBKgdpln8s3PoRyZkKsvu_LKFhg-vqq729K2OnWZJtZcEwCQ8OiW10Tbg97F8TxTkgU36ICrRRtStySpXIUX7IzQamfIDKOkKM8Aj2lBlvyZztZIqf32VqgH1YC1ttbRVybbyZGo98wUtds8xecsOu4i96sHLbEo2utQdbxhzq1d5wKUHQI34kzqm36RAZkK1vKOZF2EQPV17FS7pfdg7KeBaHIFGJs4Q3e-C5ICo_vnm-Scw2ktZfAmP1A",
                 videoAuthor: "Alex Hormozi Style",
                 authorBrand: "Modern Wealth Podcast",
@@ -373,7 +373,7 @@ const pageData = {
                 cardDirection: "LTR"
             },
             {
-                videoUrl: "https://example.com/video2",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuAFTE5YPEgHemBO_J1HWYqlH2OScK0Gu9r6MvfUeTQwyP7gj1QO730FBImi3Nc1ZJBOeB_AS0M7DQoWpBG03GKaDq_bEXpDbPPfeV2B8MxKeZ0KzRN9C7DdxbPl8FJrNO3dtGVHUKoamiBABLKxuOHp7rMdgEcZcCCgMChAYIPiKpMi1zTsNAD7tCT9gs2hSQfOUNE1uhTLZejYPPXgytD5DIzq8LCzs8GnjkdDeHdiYL7w4gbJ7N2rjyxwD5armptDVHMMMJOR1NU",
                 videoAuthor: "Cinematic Interview",
                 authorBrand: "Tech Trends Monthly",
@@ -382,7 +382,7 @@ const pageData = {
                 cardDirection: "LTR"
             },
             {
-                videoUrl: "https://example.com/video3",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_miubWsfkEirkNa_VETP_H7qMxW4FVDMk_m6Hvi_XyT8KRgNQ_Cj0Ar-SuucFvuWxyp87Feadlpte3_z_Zdccp9Wuhjngjp9DSGCU7O48weXjDdpOO5WPzFlSsX5gK6By-rUQrswveOA4376TzHqun7wtbh2n2JCHgLNrU8Ggy3VYF61V0T9pM4MQXAS1U0WZ3KTyR_R8CMkjRsqvu7VSXcgumAPrh8Ld3BPrOsvmyzKiQ78aO3NqqH4yTXXGPGopSz2VhfG1NdM",
                 videoAuthor: "Sound Design FX",
                 authorBrand: "Audio First Experience",
@@ -391,7 +391,7 @@ const pageData = {
                 cardDirection: "RTL"
             },
             {
-                videoUrl: "https://example.com/video4",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuA9VQknAo5ZsTo2mwmAoB1iakYoZmRHzjSZfjIXyxxICDG2cM52Ng4J_9CygfniMlN08KxgZYt94pw9QWe_9TI6090S25jMggrVsnOsDUlK43tktK5k88XISgLsfo8PfzT6EqORWFVrqpYmuCtCK-hTG8-Z7dxd4PDimow__yfm8MfGi7WA1LW6441-7u67_ZVD1rq_wLwoDH9tZ1VxaNzoycQS17EALUdi0CyD4Evb_9YuGUqbpOm5PJyOC4LsmVJkJeQfPqwovwI",
                 videoAuthor: "Color Grade Reel",
                 authorBrand: "Visual Brand Identity",
@@ -400,7 +400,7 @@ const pageData = {
                 cardDirection: "RTL"
             },
             {
-                videoUrl: "https://example.com/video1",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuCHT4PpzvX-4n6E2iWsVBKgdpln8s3PoRyZkKsvu_LKFhg-vqq729K2OnWZJtZcEwCQ8OiW10Tbg97F8TxTkgU36ICrRRtStySpXIUX7IzQamfIDKOkKM8Aj2lBlvyZztZIqf32VqgH1YC1ttbRVybbyZGo98wUtds8xecsOu4i96sHLbEo2utQdbxhzq1d5wKUHQI34kzqm36RAZkK1vKOZF2EQPV17FS7pfdg7KeBaHIFGJs4Q3e-C5ICo_vnm-Scw2ktZfAmP1A",
                 videoAuthor: "Alex Hormozi Style",
                 authorBrand: "Modern Wealth Podcast",
@@ -409,7 +409,7 @@ const pageData = {
                 cardDirection: "LTR"
             },
             {
-                videoUrl: "https://example.com/video2",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuAFTE5YPEgHemBO_J1HWYqlH2OScK0Gu9r6MvfUeTQwyP7gj1QO730FBImi3Nc1ZJBOeB_AS0M7DQoWpBG03GKaDq_bEXpDbPPfeV2B8MxKeZ0KzRN9C7DdxbPl8FJrNO3dtGVHUKoamiBABLKxuOHp7rMdgEcZcCCgMChAYIPiKpMi1zTsNAD7tCT9gs2hSQfOUNE1uhTLZejYPPXgytD5DIzq8LCzs8GnjkdDeHdiYL7w4gbJ7N2rjyxwD5armptDVHMMMJOR1NU",
                 videoAuthor: "Cinematic Interview",
                 authorBrand: "Tech Trends Monthly",
@@ -418,7 +418,7 @@ const pageData = {
                 cardDirection: "LTR"
             },
             {
-                videoUrl: "https://example.com/video3",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_miubWsfkEirkNa_VETP_H7qMxW4FVDMk_m6Hvi_XyT8KRgNQ_Cj0Ar-SuucFvuWxyp87Feadlpte3_z_Zdccp9Wuhjngjp9DSGCU7O48weXjDdpOO5WPzFlSsX5gK6By-rUQrswveOA4376TzHqun7wtbh2n2JCHgLNrU8Ggy3VYF61V0T9pM4MQXAS1U0WZ3KTyR_R8CMkjRsqvu7VSXcgumAPrh8Ld3BPrOsvmyzKiQ78aO3NqqH4yTXXGPGopSz2VhfG1NdM",
                 videoAuthor: "Sound Design FX",
                 authorBrand: "Audio First Experience",
@@ -427,7 +427,7 @@ const pageData = {
                 cardDirection: "RTL"
             },
             {
-                videoUrl: "https://example.com/video4",
+                videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
                 videoThumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuA9VQknAo5ZsTo2mwmAoB1iakYoZmRHzjSZfjIXyxxICDG2cM52Ng4J_9CygfniMlN08KxgZYt94pw9QWe_9TI6090S25jMggrVsnOsDUlK43tktK5k88XISgLsfo8PfzT6EqORWFVrqpYmuCtCK-hTG8-Z7dxd4PDimow__yfm8MfGi7WA1LW6441-7u67_ZVD1rq_wLwoDH9tZ1VxaNzoycQS17EALUdi0CyD4Evb_9YuGUqbpOm5PJyOC4LsmVJkJeQfPqwovwI",
                 videoAuthor: "Color Grade Reel",
                 authorBrand: "Visual Brand Identity",
