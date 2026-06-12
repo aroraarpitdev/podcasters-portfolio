@@ -30,6 +30,7 @@ export async function getPageData() {
       testimonials: {
         ...pageContent.content.testimonials,
         videoCards: testimonials.filter((t: any) => t.type === 'video').map((t: any) => ({
+          id: t.id,
           videoUrl: t.videoUrl,
           videoThumbnail: t.thumbnailUrl,
           videoAuthor: t.author,
@@ -39,6 +40,7 @@ export async function getPageData() {
           cardDirection: t.cardDirection
         })),
         textCards: testimonials.filter((t: any) => t.type === 'text').map((t: any) => ({
+          id: t.id,
           cardHeading: t.content,
           author: t.author,
           rating: t.rating?.toString() || "5",
