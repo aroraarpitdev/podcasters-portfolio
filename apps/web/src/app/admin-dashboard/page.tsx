@@ -15,6 +15,7 @@ import LeadFormSection from "./components/LeadFormSection";
 import FooterSection from "./components/FooterSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import SideNav from "./components/SideNav";
+import LoadingOverlay from "./components/LoadingOverlay";
 import { savePageData } from "@/lib/api";
 
 export default function AdminDashboardPage() {
@@ -51,10 +52,10 @@ export default function AdminDashboardPage() {
       await savePageData(payload);
 
       setSaveStatus("Success");
-      setTimeout(() => setSaveStatus(null), 3000);
-
-      // Update window location to refresh state with new data, or we can just leave it since initialData will be stale until refresh.
-      // But for simple UX, we let them know it's saved.
+      setTimeout(() => {
+        setSaveStatus(null);
+        window.location.reload();
+      }, 1500);
     } catch (err: any) {
       console.error(err);
       setSaveStatus(err.message || "Error");
@@ -111,6 +112,9 @@ export default function AdminDashboardPage() {
 
         </section>
       </main>
+
+      {/* Global Loading Overlay */}
+      {isSaving && <LoadingOverlay text="Syncing Changes" />}
     </div>
   );
 }

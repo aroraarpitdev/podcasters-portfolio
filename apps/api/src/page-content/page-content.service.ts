@@ -112,6 +112,35 @@ export class PageContentService {
     if (!result) {
       throw new NotFoundException(`Page content with id ${id} not found`);
     }
+
+    if (payloadContent?.testimonials) {
+      const allTestimonials = await db.select().from(testimonials);
+      const reconstructedContent = {
+        ...(result.content as any),
+        testimonials: {
+          ...(result.content as any).testimonials,
+          videoCards: allTestimonials.filter(t => t.type === 'video').map(t => ({
+            id: t.id,
+            videoUrl: t.videoUrl,
+            videoThumbnail: t.thumbnailUrl,
+            videoAuthor: t.author,
+            authorBrand: t.brand,
+            testimonial: t.content,
+            category: t.category,
+            cardDirection: t.cardDirection
+          })),
+          textCards: allTestimonials.filter(t => t.type === 'text').map(t => ({
+            id: t.id,
+            cardHeading: t.content,
+            author: t.author,
+            rating: t.rating?.toString() || "5",
+            category: t.category
+          }))
+        }
+      };
+      return { ...result, content: reconstructedContent };
+    }
+
     return result;
   }
 
