@@ -1,13 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { sendLeadAction } from "@/app/actions/lead";
 
 export function LeadForm({ data }: { data: any }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData(e.currentTarget);
+      const result = await sendLeadAction(formData);
+      
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        alert(result.message || "Failed to submit form. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An unexpected error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!data) return null;
@@ -60,6 +79,8 @@ export function LeadForm({ data }: { data: any }) {
                       placeholder="John Doe"
                       required
                       type="text"
+                      name="fullName"
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -72,6 +93,8 @@ export function LeadForm({ data }: { data: any }) {
                       placeholder="email@example.com"
                       required
                       type="email"
+                      name="email"
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -79,9 +102,13 @@ export function LeadForm({ data }: { data: any }) {
                     <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                       Monthly Budget
                     </label>
-                    <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
+                    <select 
+                      name="budget"
+                      disabled={isSubmitting}
+                      className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]"
+                    >
                       {data.rightForm?.monthlyBudgetOptions?.map((opt: string, i: number) => (
-                        <option key={i} className="bg-surface-container">{opt}</option>
+                        <option key={i} className="bg-surface-container" value={opt}>{opt}</option>
                       ))}
                     </select>
                   </div>
@@ -90,9 +117,13 @@ export function LeadForm({ data }: { data: any }) {
                     <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                       Primary Platform
                     </label>
-                    <select className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]">
+                    <select 
+                      name="platform"
+                      disabled={isSubmitting}
+                      className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]"
+                    >
                       {data.rightForm?.primaryPlatformOptions?.map((opt: string, i: number) => (
-                        <option key={i} className="bg-surface-container">{opt}</option>
+                        <option key={i} className="bg-surface-container" value={opt}>{opt}</option>
                       ))}
                     </select>
                   </div>
@@ -102,16 +133,29 @@ export function LeadForm({ data }: { data: any }) {
                     Comments (Optional)
                   </label>
                   <textarea
+                    name="comments"
+                    disabled={isSubmitting}
                     className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
                     placeholder="Write something"
                   />
                 </div>
               </div>
               <button
-                className="w-full bg-primary text-on-primary font-label-sm text-[12px] uppercase py-5 rounded-lg font-extrabold tracking-widest mt-6"
+                className={`w-full bg-primary text-on-primary font-label-sm text-[12px] uppercase py-5 rounded-lg font-extrabold tracking-widest mt-6 transition-opacity flex justify-center items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90'}`}
                 type="submit"
+                disabled={isSubmitting}
               >
-                {data.rightForm?.ctaText || "Send My Details"}
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-on-primary" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  data.rightForm?.ctaText || "Send My Details"
+                )}
               </button>
             </form>
           ) : (
