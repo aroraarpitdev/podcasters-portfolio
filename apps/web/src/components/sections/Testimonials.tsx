@@ -34,8 +34,6 @@ export function Testimonials({ data }: { data: any }) {
     });
   }, { scope: container });
 
-  console.log(data.videoCards)
-
   if (!data) return null;
 
   return (
