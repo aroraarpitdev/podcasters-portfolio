@@ -1,4 +1,5 @@
 "use server";
+import { Resend } from 'resend';
 
 export async function sendLeadAction(formData: FormData) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -9,11 +10,25 @@ export async function sendLeadAction(formData: FormData) {
     return { success: false, message: "Configuration error" };
   }
 
-  const fullName = formData.get("fullName")?.toString() || "Not provided";
-  const email = formData.get("email")?.toString() || "Not provided";
-  const budget = formData.get("budget")?.toString() || "Not provided";
-  const platform = formData.get("platform")?.toString() || "Not provided";
-  const comments = formData.get("comments")?.toString() || "None";
+  // --- Honeypot check ---
+  // If this hidden field has any value, it's almost certainly a bot.
+  const honeypot = formData.get("website")?.toString() || "";
+  if (honeypot.trim() !== "") {
+    console.warn("Honeypot triggered — likely bot submission.");
+    // Return a "success" response so bots don't learn the form rejected them.
+    return { success: true };
+  }
+
+  const escapeHtml = (str: string) =>
+    str.replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c] as string));
+
+  const fullName = escapeHtml(formData.get("fullName")?.toString() || "Not provided");
+  const email = escapeHtml(formData.get("email")?.toString() || "Not provided");
+  const budget = escapeHtml(formData.get("budget")?.toString() || "Not provided");
+  const platform = escapeHtml(formData.get("platform")?.toString() || "Not provided");
+  const comments = escapeHtml(formData.get("comments")?.toString() || "None");
 
   const htmlContent = `
     <div style="font-family: sans-serif; padding: 20px; max-width: 600px; border: 1px solid #eaeaeb; border-radius: 8px;">
@@ -50,30 +65,24 @@ export async function sendLeadAction(formData: FormData) {
   `;
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "Acme <onboarding@resend.dev>",
-        to: [toEmail],
-        subject: `New Lead: ${fullName}`,
-        html: htmlContent,
-        reply_to: email !== "Not provided" ? email : undefined,
-      }),
+    const resend = new Resend(apiKey);
+
+    const { data, error } = await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: [toEmail],
+      subject: `New Lead: ${fullName}`,
+      html: htmlContent,
+      replyTo: email !== "Not provided" ? email : undefined,
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Resend API Error:", errorData);
+    if (error) {
+      console.error("Resend API Error:", error);
       return { success: false, message: "Failed to send email" };
     }
 
-    return { success: true };
+    return { success: true, id: data?.id };
   } catch (error) {
-    console.error("Fetch Error:", error);
+    console.error("Send Error:", error);
     return { success: false, message: "Network error" };
   }
 }

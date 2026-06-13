@@ -10,12 +10,12 @@ export function LeadForm({ data }: { data: any }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
-    
+
     setIsSubmitting(true);
     try {
       const formData = new FormData(e.currentTarget);
       const result = await sendLeadAction(formData);
-      
+
       if (result.success) {
         setIsSubmitted(true);
       } else {
@@ -102,7 +102,7 @@ export function LeadForm({ data }: { data: any }) {
                     <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                       Monthly Budget
                     </label>
-                    <select 
+                    <select
                       name="budget"
                       disabled={isSubmitting}
                       className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]"
@@ -117,7 +117,7 @@ export function LeadForm({ data }: { data: any }) {
                     <label className="text-[10px] font-extrabold uppercase tracking-widest text-on-surface/60">
                       Primary Platform
                     </label>
-                    <select 
+                    <select
                       name="platform"
                       disabled={isSubmitting}
                       className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface min-h-[44px]"
@@ -137,6 +137,17 @@ export function LeadForm({ data }: { data: any }) {
                     disabled={isSubmitting}
                     className="w-full bg-transparent border-b border-on-surface/20 focus:border-primary focus:ring-0 py-4 transition-colors text-on-surface placeholder:text-on-surface/20 min-h-[44px]"
                     placeholder="Write something"
+                  />
+                </div>
+                {/* Honeypot field — hidden from real users, bots tend to fill it */}
+                <div style={{ position: "absolute", left: "-9999px", opacity: 0 }} aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -161,17 +172,23 @@ export function LeadForm({ data }: { data: any }) {
           ) : (
             <div
               id="success-msg"
-              className="w-full bg-surface-container p-10 rounded-2xl border-2 border-primary text-center"
+              className="w-full bg-surface-container p-10 rounded-2xl border-2 border-primary text-center flex flex-col items-center justify-center space-y-2"
             >
-              <span className="material-symbols-outlined text-primary text-6xl mb-4 font-bold">
+              <span className="material-symbols-outlined text-primary text-6xl mb-2 font-bold">
                 check_circle
               </span>
-              <h3 className="font-headline-md text-2xl mb-2 text-on-surface">
+              <h3 className="font-headline-md text-2xl text-on-surface">
                 Message Sent!
               </h3>
-              <p className="text-on-surface font-bold">
+              <p className="text-on-surface font-bold mb-8">
                 We'll be in touch within 24 hours.
               </p>
+              <button
+                onClick={() => setIsSubmitted(false)}
+                className="bg-primary/10 text-primary border border-primary/20 font-label-sm text-[12px] uppercase py-4 px-8 rounded-lg font-extrabold tracking-widest hover:bg-primary/20 transition-colors mt-4"
+              >
+                Send Another Message
+              </button>
             </div>
           )}
         </div>
